@@ -1,0 +1,80 @@
+.jumbotron {
+  position:relative;
+  overflow:hidden;
+  margin-bottom: 0;
+}
+
+.jumbotron .container {
+  position:relative;
+  z-index:2;
+
+  background:rgba(0,0,0,0.2);
+  padding:2rem;
+  border:1px solid rgba(0,0,0,0.1);
+  border-radius:3px;
+}
+
+.jumbotron-background {
+  object-fit:cover;
+  font-family: 'object-fit: cover;';
+  position:absolute;
+  top:0;
+  z-index:1;
+  width:100%;
+  height:100%;
+  opacity:0.5;
+}
+
+img.blur {
+	-webkit-filter: blur(2px);
+	filter: blur(2px);
+  filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='2');
+
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  right: 0px;
+  width: auto;
+  height: 500px;
+  overflow: auto;
+}
+
+.my-custom-scrollbar-small {
+  position: relative;
+  right: 0px;
+  width: auto;
+  height: 350px;
+  overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+  display: block;
+}
+
+.content {
+  /* padding: 20%; */
+  margin-top: 5%;
+  margin-bottom: 10%;
+}
+
+.content-small {
+  /* padding: 20%; */
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+.content-upload{
+  margin-top: 5%;
+  margin-bottom: 14%;
+}
+
+.content-login {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding: 0;
+}
+
+.content-login label{
+  color: white;
+}
