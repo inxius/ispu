@@ -44,6 +44,28 @@
       }
     }
 
+    public function toArray($object){
+      $rows = [];
+      while ($row = mysqli_fetch_array($object)) {
+        unset($row[0]);
+        unset($row['id']);
+        unset($row['1']);
+        unset($row['id_petugas']);
+        unset($row['pm10']);
+        unset($row['so2']);
+        unset($row['co']);
+        unset($row['o3']);
+        unset($row['no2']);
+        unset($row['kategori']);
+        unset($row['9']);
+        unset($row['8']);
+        unset($row['tanggal_pengambilan']);
+        unset($row['tanggal_unggah']);
+        array_push($rows, $row);
+      }
+      return $rows;
+    }
+
     public function uploadFileToDB($filename, $id_petugas, $filter){
       $dataArray = $this->convertToArray($filename);
       $upload = $this->getNormalData($dataArray, $id_petugas, $filter);
@@ -132,6 +154,131 @@
           }
         }
         return true;
+      }
+    }
+
+    public function pelatihan(){
+      $out = Array();
+      $y = date('Y');
+      $m = date('m');
+      $d = date('d');
+      $today = $y."-".$m."-".$d;
+      $count = $this->getTotalData('tb_data_latih');
+      $countBaik = $this->getTotalDataWhere('tb_data_latih', 'kategori', 'baik');
+      $countSedang = $this->getTotalDataWhere('tb_data_latih', 'kategori', 'sedang');
+      $countTSehat = $this->getTotalDataWhere('tb_data_latih', 'kategori', 'tidak sehat');
+      $countSTSehat = $this->getTotalDataWhere('tb_data_latih', 'kategori', 'sangat tidak sehat');
+      $baik = $this->getCiri('baik', $count);
+      $sedang = $this->getCiri('sedang', $count);
+      $tidakSehat = $this->getCiri('tidak sehat', $count);
+      $sangatTdkSehat = $this->getCiri('sangat tidak sehat', $count);
+      $this->DBS->updateParameter('baik', $baik, $today);
+      $this->DBS->updateParameter('sedang', $sedang, $today);
+      $this->DBS->updateParameter('tidak sehat', $tidakSehat, $today);
+      $this->DBS->updateParameter('sangat tidak sehat', $sangatTdkSehat, $today);
+      array_push($out, $count);
+      array_push($out, $countBaik);
+      array_push($out, $countSedang);
+      array_push($out, $countTSehat);
+      array_push($out, $countSTSehat);
+      return $out;
+    }
+
+    public function getTotalData($table){
+      $count = $this->DBS->countDataTable($table);
+      while ($row = mysqli_fetch_array($count)) {
+        $out = $row[0];
+      }
+      return $out;
+    }
+
+    public function getTotalDataWhere($table, $where, $key){
+      $count = $this->DBS->countDataTableWhere($table, $where, $key);
+      while ($row = mysqli_fetch_array($count)) {
+        $out = $row[0];
+      }
+      return $out;
+    }
+
+    public function getCiri($filter, $totalLenght){
+      $out = Array();
+      $data = $this->DBS->action_Select_Where('tb_data_latih', 'kategori', $filter);
+      $dataArray = $this->toArray($data);
+      $mean = $this->getMean($dataArray);
+      $S2 = $this->getS2($dataArray, $mean);
+      $pKategori = $this->getDiscritProb($dataArray, $totalLenght);
+      for ($i=0; $i < count($mean); $i++) {
+        array_push($out, $mean[$i]);
+      }
+
+      for ($i=0; $i < count($S2); $i++) {
+        array_push($out, $S2[$i]);
+      }
+
+      array_push($out, $pKategori);
+      return $out;
+    }
+
+    public function getMean($data){
+      $out = Array();
+      $lenght = count($data);
+
+      for ($i=2; $i < 7; $i++) {
+        $sum = 0;
+        if ($lenght == 0) {
+          $mean = 0;
+        }
+        else {
+          for ($j=0; $j < $lenght; $j++) {
+            $sum += $data[$j][$i];
+          }
+          $mean = $sum / $lenght;
+        }
+        array_push($out, number_format($mean, 5, '.', ""));
+      }
+      return $out;
+    }
+
+    public function getS2($data, $mean){
+      $out = Array();
+      $lenght = count($data);
+
+      for ($i=2; $i < 7; $i++) {
+        $sum = 0;
+        if ($lenght == 0) {
+          $S2 = 0;
+        }
+        else {
+          for ($j=0; $j < $lenght; $j++) {
+            $pow = number_format(pow(($data[$j][$i] - $mean[$i -2]), 2), 5, '.', "");
+            $sum += $pow;
+          }
+
+          if ($lenght == 1) {
+            $S2 = $sum / $lenght;
+          }
+          else {
+            $S2 = $sum / ($lenght - 1);
+          }
+        }
+        array_push($out, number_format($S2, 5, '.', ""));
+      }
+      return $out;
+    }
+
+    public function getDiscritProb($data, $totalLenght){
+      if ($totalLenght != 0) {
+        if ($data == NULL) {
+          return 0;
+        }
+        else {
+          $lenght = count($data);
+          $out = $lenght / $totalLenght;
+          return number_format($out, 5, '.', "");
+        }
+      }
+      else {
+        return 0;
       }
     }
 
