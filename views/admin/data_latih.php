@@ -38,12 +38,16 @@
                   <input type="hidden" name="aksi" value="latih">
                 </div>
               </div>
-            </form>
-            <?php
+              <?php
               if (isset($_GET['gagal'])) {
-                echo "Upload GAGAL";
+                echo "<b>Upload GAGAL</b>";
               }
-             ?>
+
+              if (isset($_GET['berhasil'])) {
+                echo "<b>Upload Berhasil !</b>";
+              }
+              ?>
+            </form>
           </div>
         </div>
 

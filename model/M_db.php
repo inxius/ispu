@@ -1,7 +1,7 @@
 <?php
   class M_db
   {
-    private $host =  "127.0.0.1";
+    private $host =  "localhost";
     private $user =  "root";
     private $pass =  "Jafar_001";
     private $database =  "db_ispu";
@@ -34,6 +34,12 @@
       $sql = "SELECT * FROM ".$table." WHERE ".$where." = '".$key."'";
       $query = $db->query($sql) or die ($db->error);
       return $query;
+    }
+
+    function addToDBLatih($id_petugas, $pm10, $so2, $co, $o3, $no2, $kat, $tanggal_pengambilan, $tanggal_unggah){
+      $db = $this->mysqli;
+      $sql = "INSERT INTO tb_data_latih VALUES (NULL , '$id_petugas', '$pm10', '$so2', '$co', '$o3', '$no2', '$kat', '$tanggal_pengambilan', '$tanggal_unggah')";
+      $query = $db->query($sql) or die ($db->error);
     }
   }
 
