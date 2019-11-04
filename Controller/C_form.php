@@ -1,10 +1,6 @@
 <?php
   session_start();
-  // require_once('../model/M_db.php');
   include_once $_SERVER['DOCUMENT_ROOT']."/Controller/control.php";
-  // include_once 'C_proses.php';
-  // $sql = new M_db();
-  // $proses = new c_proses($db);
 
   if (@$_POST['login']) {
     $email = $_POST['email'];
@@ -42,9 +38,10 @@
       $status = false;
     }
 
-    if ($status == false) {
+    if (!$status) {
       if (strcasecmp($aksi, 'latih') == 0) {
         header("location:../views/admin/data_latih.php?gagal");
+        // echo "gggl";
       }
 
       if (strcasecmp($aksi, "uji") == 0) {
@@ -56,32 +53,34 @@
         $upload = $proses->uploadFileToDB($filename, $id_petugas, $aksi);
         if ($upload == false) {
           $status = false;
-          unlink($target_file);
         }
         unlink($target_file);
       }
       else {
         $status = false;
       }
+
+      if ($status == true) {
+        if (strcasecmp($aksi, 'latih') == 0) {
+          header("location:../views/admin/data_latih.php?berhasil");
+          echo $status;
+        }
+
+        if (strcasecmp($aksi, 'uji') == 0) {
+          header("location:../views/admin/data_uji.php?berhasil");
+        }
+      }
+      else {
+        if (strcasecmp($aksi, 'latih') == 0) {
+          header("location:../views/admin/data_latih.php?gagal");
+        }
+
+        if (strcasecmp($aksi, 'uji') == 0) {
+          header("location:../views/admin/data_uji.php?gagal");
+        }
+      }
+
     }
 
-    if ($status = true) {
-      if (strcasecmp($aksi, 'latih') == 0) {
-        header("location:../views/admin/data_latih.php?berhasil");
-      }
-
-      if (strcasecmp($aksi, 'uji') == 0) {
-        header("location:../views/admin/data_uji.php?berhasil");
-      }
-    }
-    else {
-      if (strcasecmp($aksi, 'latih') == 0) {
-        header("location:../views/admin/data_latih.php?gagal");
-      }
-
-      if (strcasecmp($aksi, 'uji') == 0) {
-        header("location:../views/admin/data_uji.php?gagal");
-      }
-    }
   }
  ?>

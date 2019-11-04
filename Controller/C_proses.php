@@ -1,6 +1,4 @@
 <?php
-  // include_once '../model/M_db.php';
-  // include_once $_SERVER['DOCUMENT_ROOT']."/model/M_db.php";
   /**
    *
    */
@@ -113,7 +111,7 @@
 
       }
 
-      if ($pm10 == -10 || $so2 == -10 || $co == -10 || $o3 == -10 || $no2 == -10 || $kat == -10 || $kat == -10) {
+      if ($pm10 == -10 || $so2 == -10 || $co == -10 || $o3 == -10 || $no2 == -10 || $kat == -10 || $tanggal == -10) {
         return false;
       }
       else {
@@ -121,13 +119,15 @@
           if (strtolower($data[$i][$kat] != "tidak ada data")) {
             if (is_numeric($data[$i][$pm10]) && is_numeric($data[$i][$so2]) && is_numeric($data[$i][$co]) &&
                 is_numeric($data[$i][$o3]) && is_numeric($data[$i][$no2])) {
+
               if (strcasecmp($filter, "latih") == 0) {
-                $this->DBS->addToDBLatih($id_petugas, $data[$i][$pm10], $data[$i][$so2], $data[$i][$co], $data[$i][$o3], $data[$i][$no2], strtolower($data[$i][$kat]), $data[$i][$tanggal], $today);
+                $this->DBS->addToTBLatih($id_petugas, $data[$i][$pm10], $data[$i][$so2], $data[$i][$co], $data[$i][$o3], $data[$i][$no2], strtolower($data[$i][$kat]), $data[$i][$tanggal], $today);
               }
 
               if (strcasecmp($filter, "uji") == 0) {
-                // code...
+                $this->DBS->addToTBUji($id_petugas, $data[$i][$pm10], $data[$i][$so2], $data[$i][$co], $data[$i][$o3], $data[$i][$no2], strtolower($data[$i][$kat]), $data[$i][$tanggal], $today);
               }
+
             }
           }
         }
@@ -137,6 +137,14 @@
 
     public function get_DataLatih(){
       $data = $this->DBS->action_Select("tb_data_latih");
+      if (mysqli_num_rows($data) == 0) {
+        $data = false;
+      }
+      return $data;
+    }
+
+    public function get_DataUji(){
+      $data = $this->DBS->action_Select("tb_data_uji");
       if (mysqli_num_rows($data) == 0) {
         $data = false;
       }

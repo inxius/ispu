@@ -36,9 +36,15 @@
       return $query;
     }
 
-    function addToDBLatih($id_petugas, $pm10, $so2, $co, $o3, $no2, $kat, $tanggal_pengambilan, $tanggal_unggah){
+    function addToTBLatih($id_petugas, $pm10, $so2, $co, $o3, $no2, $kat, $tanggal_pengambilan, $tanggal_unggah){
       $db = $this->mysqli;
       $sql = "INSERT INTO tb_data_latih VALUES (NULL , '$id_petugas', '$pm10', '$so2', '$co', '$o3', '$no2', '$kat', '$tanggal_pengambilan', '$tanggal_unggah')";
+      $query = $db->query($sql) or die ($db->error);
+    }
+
+    function addToTBUji($id_petugas, $pm10, $so2, $co, $o3, $no2, $kat, $tanggal_pengambilan, $tanggal_unggah){
+      $db = $this->mysqli;
+      $sql = "INSERT INTO tb_data_uji VALUES (NULL , '$id_petugas', '$pm10', '$so2', '$co', '$o3', '$no2', '$kat', '$tanggal_pengambilan', '$tanggal_unggah')";
       $query = $db->query($sql) or die ($db->error);
     }
   }
