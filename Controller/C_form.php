@@ -81,6 +81,31 @@
       }
 
     }
+  }
 
+  if (@$_GET['uji']) {
+    $metode = $_GET['metode'];
+
+    if (strcasecmp($metode, 'bayes') == 0) {
+      $dataFitur = Array();
+      $cek = $proses->cekData();
+      if (!$cek) {
+        header("location:../views/admin/pengujian_bayes.php?ujigagal");
+      }
+
+      $dataUji = $proses->toArray($proses->get_DataUji());
+      $dataParameterBaik = $proses->toArrayFiture($proses->get_Parameter_Where('baik'));
+      $dataParameterSedang = $proses->toArrayFiture($proses->get_Parameter_Where('sedang'));
+      $dataParameterTSehat = $proses->toArrayFiture($proses->get_Parameter_Where('tidak sehat'));
+      $dataParameterSTSehat = $proses->toArrayFiture($proses->get_Parameter_Where('sangat tidak sehat'));
+      array_push($dataFitur, $dataParameterBaik);
+      array_push($dataFitur, $dataParameterSedang);
+      array_push($dataFitur, $dataParameterTSehat);
+      array_push($dataFitur, $dataParameterSTSehat);
+      // $_SESSION['dataUji'] = $dataUji;
+      // $_SESSION['dataFitur'] = $dataFitur;
+      // header("location:../views/admin/uji_bayes.php");
+      include_once '../views/admin/uji_bayes.php';
+    }
   }
  ?>

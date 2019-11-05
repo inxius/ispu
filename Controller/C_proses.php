@@ -29,7 +29,7 @@
         $id_petugas = $row['id_petugas'];
 
         if ($email == $tesEmail && $pass == $tesPass) {
-          session_start();
+          // session_start();
           $_SESSION['status'] = "login";
           $_SESSION['name'] = $name;
           $_SESSION['id_petugas'] = $id_petugas;
@@ -138,7 +138,7 @@
       }
       else {
         for ($i=0; $i < count($data); $i++) {
-          if (strtolower($data[$i][$kat] != "tidak ada data")) {
+          if ($data[$i][$kat] != "TIDAK ADA DATA" && $data[$i][$kat] != "Tidak Ada Data") {
             if (is_numeric($data[$i][$pm10]) && is_numeric($data[$i][$so2]) && is_numeric($data[$i][$co]) &&
                 is_numeric($data[$i][$o3]) && is_numeric($data[$i][$no2])) {
 
@@ -282,6 +282,34 @@
       }
     }
 
+    public function cekData(){
+      $dtlatih = $this->DBS->countDataTable('tb_data_latih');
+      $dtuji = $this->DBS->countDataTable('tb_data_uji');
+
+      while ($row = mysqli_fetch_array($dtlatih)) {
+        $latih = $row[0];
+      }
+
+      while ($row = mysqli_fetch_array($dtuji)) {
+        $uji = $row[0];
+      }
+
+      if ($latih == 0 || $uji == 0) {
+        return false;
+      }
+      else {
+        return true;
+      }
+    }
+
+    public function toArrayFiture($object){
+      $rows = Array();
+      while ($row = mysqli_fetch_array($object)) {
+        array_push($rows, $row[3]);
+      }
+      return $rows;
+    }
+
     public function get_DataLatih(){
       $data = $this->DBS->action_Select("tb_data_latih");
       if (mysqli_num_rows($data) == 0) {
@@ -304,6 +332,10 @@
 
     public function get_Parameter_All(){
       return $this->DBS->action_Select("tb_parameter");
+    }
+
+    public function get_Parameter_Where($key){
+      return $this->DBS->action_Select_Where('tb_parameter', 'kategori', $key);
     }
   }
 
