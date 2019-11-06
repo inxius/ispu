@@ -63,7 +63,6 @@
       }
       else {
         $dataUji = $proses->toArray($proses->get_DataUji());
-        $dataParameter = $proses->get_Parameter_All();
         $dataParameterBaik = $proses->get_Parameter_Where('baik');
         $dataParameterSedang = $proses->get_Parameter_Where('sedang');
         $dataParameterTSehat = $proses->get_Parameter_Where('tidak sehat');
@@ -78,6 +77,29 @@
         array_push($dataFitur, $dataFiturSTSehat);
         include_once '../views/admin/uji_bayes.php';
       }
+    }
+
+    if (@$_GET['aksi'] == 'klasifikasi_bayes') {
+      $dataTes = Array();
+      $dataFitur = Array();
+      array_push($dataTes, $_GET['pm10']);
+      array_push($dataTes, $_GET['so2']);
+      array_push($dataTes, $_GET['co']);
+      array_push($dataTes, $_GET['o3']);
+      array_push($dataTes, $_GET['no2']);
+      $dataParameterBaik = $proses->get_Parameter_Where('baik');
+      $dataParameterSedang = $proses->get_Parameter_Where('sedang');
+      $dataParameterTSehat = $proses->get_Parameter_Where('tidak sehat');
+      $dataParameterSTSehat = $proses->get_Parameter_Where('sangat tidak sehat');
+      $dataFiturBaik = $proses->toArrayFiture($proses->get_Parameter_Where('baik'));
+      $dataFiturSedang = $proses->toArrayFiture($proses->get_Parameter_Where('sedang'));
+      $dataFiturTSehat = $proses->toArrayFiture($proses->get_Parameter_Where('tidak sehat'));
+      $dataFiturSTSehat = $proses->toArrayFiture($proses->get_Parameter_Where('sangat tidak sehat'));
+      array_push($dataFitur, $dataFiturBaik);
+      array_push($dataFitur, $dataFiturSedang);
+      array_push($dataFitur, $dataFiturTSehat);
+      array_push($dataFitur, $dataFiturSTSehat);
+      include_once '../views/admin/klasifikasi_bayes.php';
     }
   }
 

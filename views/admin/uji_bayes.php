@@ -10,7 +10,7 @@
  <html lang="en" dir="ltr">
    <head>
      <meta charset="utf-8">
-     <title>Nive Bayes - Pengujian Data Uji</title>
+     <title>Naive Bayes - Pengujian Data Uji</title>
      <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
      <link rel="stylesheet" href="../../assets/css/custom.css">
 
@@ -46,8 +46,6 @@
      <nav class="navbar navbar-expand-sm fixed-top navbar-dark bg-dark">
        <?php
        include "navbar.php";
-       // unset($dataUjiEnc);
-       // unset($dataLatihEnc);
        ?>
      </nav>
 

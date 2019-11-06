@@ -30,6 +30,51 @@ function k_getProb(fitur, datates){
   return out;
 }
 
+function k_getLikelihood(data){
+  var out = new Array();
+  for (var i = 0; i < data.length; i++) {
+    var likelihood = 1;
+    for (var j = 0; j < 6; j++) {
+      likelihood = (parseFloat(likelihood) * parseFloat(data[i][j])).toPrecision(6);
+    }
+    out.push(likelihood)
+  }
+  return out;
+}
+
+function k_getProbAkhir(data){
+  var out = new Array();
+  var sum = 0;
+  for (var i = 0; i < data.length; i++) {
+    sum = (parseFloat(sum) + parseFloat(data[i])).toPrecision(6);
+  }
+
+  for (var i = 0; i < data.length; i++) {
+    var probAkhir = (data[i] / sum).toPrecision(6);
+    out.push(probAkhir);
+  }
+  return out;
+}
+
+function k_getKat(data){
+  var max = Math.max(data[0], data[1], data[2], data[3]);
+  if (data[0] == max) {
+    return "baik";
+  }
+  else if (data[1] == max) {
+    return "sedang";
+  }
+  else if (data[2] == max) {
+    return "tidak sehat";
+  }
+  else if (data[3] == max) {
+    return "sangat tidak sehat";
+  }
+  else {
+    return "error";
+  }
+}
+
 
 // UJI ZONE //
 

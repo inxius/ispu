@@ -45,7 +45,7 @@
             <hr>
             <div class="row d-flex justify-content-center align-items-center">
               <div class="col-md-8 col-sm-8">
-                <form class="" action="index.html" method="post">
+                <form class="" action="../../Controller/C_control.php" method="get">
                   <div class="text-center">
                     <div class="row form-group">
                       <label for="pm10" class="col-md-4 col-sm-4 col-form-label" style="color:white;"> <b>Index PM10</b> </label>
@@ -85,8 +85,8 @@
 
                   <div class="row d-flex justify-content-center align-items-center">
                     <div class="col-md-6 col-sm-6 text-center">
-                      <input type="hidden" name="aksi" value="klasifikasi">
-                      <input type="submit" class="btn btn-primary btn-fill" name="submit" value="Proses Uji">
+                      <input type="hidden" name="aksi" value="klasifikasi_bayes">
+                      <input type="submit" class="btn btn-primary btn-fill" name="" value="Proses Uji">
                     </div>
                   </div>
                 </form>
