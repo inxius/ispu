@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -24,18 +23,20 @@
           <div class="col-md-6 col-sm-6 text-center">
             <h2 style="color:white;"><b>Pengujian Dengan Data Uji</b></h2>
             <hr>
-            <form class="" action="../../Controller/C_form.php" method="get">
-              <input type="hidden" name="metode" value="bayes">
-              <input type="submit" class="btn btn-danger btn-fill" name="uji" value="Proses Uji">
+            <form class="" action="../../Controller/C_control.php" method="get">
+              <input type="hidden" name="aksi" value="uji_bayes">
+              <input type="submit" class="btn btn-danger btn-fill" name="" value="Proses Uji">
             </form>
 
             <?php
-              if (isset($_GET["ujigagal"])) {
+            if (isset($status)) {
+              if (!$status) {
                 ?>
-                  <hr>
-                  <p class="text-center"> <b>Data Uji atau Data Latih Masih Kosong !</b> </p>
+                <hr>
+                <p class="text-center"> <b>Data Uji atau Data Latih Masih Kosong !</b> </p>
                 <?php
               }
+            }
              ?>
           </div>
 

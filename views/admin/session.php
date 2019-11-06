@@ -1,6 +1,6 @@
 <?php
-session_start();
+// session_start();
 if(@$_SESSION['status'] != "login"){
-    header("location:../login.php");
+  header("location:../../Controller/C_control.php?view=login");
 }
  ?>

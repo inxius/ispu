@@ -1,6 +1,5 @@
 <?php
 include_once 'session.php';
-include_once $_SERVER['DOCUMENT_ROOT']."/Controller/control.php";
 
 ?>
 
@@ -29,13 +28,12 @@ include_once $_SERVER['DOCUMENT_ROOT']."/Controller/control.php";
         <div class="col-md-4 col-sm-4 text-center">
           <h2 style="color:white;"> <b>Pelatihan Naive Bayes</b> </h2>
           <hr>
-          <form class="" action="#" method="post">
-            <button type="submit" class="btn btn-danger btn-lg" name="latih">Latih Naive Bayes</button>
+          <form class="" action="../../Controller/C_control.php" method="get">
+            <input type="hidden" name="aksi" value="latih">
+            <button type="submit" class="btn btn-danger btn-lg" name="">Latih Naive Bayes</button>
           </form>
           <?php
-          if (isset($_POST['latih'])) {
-            echo "<hr>";
-            $data = $proses->pelatihan();
+          if (isset($data)) {
             ?>
             <h3 style="color:white;">Informasi Data Pelatihan</h3>
             <table class="table table-responsive table-borderless table-striped text-left border-top" style="color:white;">
@@ -83,7 +81,6 @@ include_once $_SERVER['DOCUMENT_ROOT']."/Controller/control.php";
             </thead>
             <tbody style="color:white;" class="table-wrapper-scroll-y my-custom-scrollbar-small">
               <?php
-              $dataParameter = $proses->get_Parameter_All();
               while ($data = $dataParameter->fetch_object()) {
                 ?>
                 <tr >

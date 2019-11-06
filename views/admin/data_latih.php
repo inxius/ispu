@@ -1,8 +1,5 @@
 <?php
   include_once 'session.php';
-  include_once $_SERVER['DOCUMENT_ROOT']."/Controller/control.php";
-
-  $data = $proses->get_DataLatih();
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -30,7 +27,7 @@
         <div class="row d-flex justify-content-left align-items-left">
           <div class="col-md-12 col-sm-12 text-center">
 
-            <form class="form-inline" action="../../Controller/C_form.php" method="post" enctype="multipart/form-data">
+            <form class="form-inline" action="../../Controller/C_control.php" method="post" enctype="multipart/form-data">
               <div class="input-group">
                 <input type="file" class="btn btn-primary btn-fill" name="fileToUpload">
                 <div class="input-group-append">
@@ -39,13 +36,15 @@
                 </div>
               </div>
               <?php
-              if (isset($_GET['gagal'])) {
-                echo "<b>Upload GAGAL</b>";
+              if (isset($status)) {
+                if ($status == 'gagal') {
+                  echo "<b>Upload GAGAL</b>";
+                }
+                else {
+                  echo "<b>Upload Berhasil !</b>";
+                }
               }
 
-              if (isset($_GET['berhasil'])) {
-                echo "<b>Upload Berhasil !</b>";
-              }
               ?>
             </form>
           </div>

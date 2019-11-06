@@ -22,7 +22,7 @@ if(@$_SESSION['status'] == "login"){
           <div class="col-md-8 col-sm-8">
             <h1 style="color:white;" class="text-center">LOGIN</h1>
             <hr>
-            <form class="form-group" action="../Controller/C_form.php" method="post">
+            <form class="form-group" action="../Controller/C_control.php" method="post">
               <div class="row d-flex justify-content-center align-items-center">
                 <label for="email">E-mail</label>
                 <input type="email" class="form-control" name="email" value="">
@@ -32,7 +32,7 @@ if(@$_SESSION['status'] == "login"){
                 <input type="password" class="form-control" name="pass" value="">
               </div>
               <div class="row  d-flex justify-content-center align-items-center">
-                <input type="submit" class="btn btn-success" name="login" value="Login">
+                <input type="submit" class="btn btn-success" name="aksilogin" value="Login">
               </div>
             </form>
           </div>

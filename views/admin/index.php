@@ -1,9 +1,9 @@
 <?php
 session_start();
 if(@$_SESSION['status'] != "login"){
-    header("location:../login.php");
+  header("location:../../Controller/C_control.php?view=login");
 }
 else {
-  header("location:home.php");
+  header("location:../../Controller/C_control.php?view=home");
 }
  ?>
