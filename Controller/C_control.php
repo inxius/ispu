@@ -63,14 +63,19 @@
       }
       else {
         $dataUji = $proses->toArray($proses->get_DataUji());
-        $dataParameterBaik = $proses->toArrayFiture($proses->get_Parameter_Where('baik'));
-        $dataParameterSedang = $proses->toArrayFiture($proses->get_Parameter_Where('sedang'));
-        $dataParameterTSehat = $proses->toArrayFiture($proses->get_Parameter_Where('tidak sehat'));
-        $dataParameterSTSehat = $proses->toArrayFiture($proses->get_Parameter_Where('sangat tidak sehat'));
-        array_push($dataFitur, $dataParameterBaik);
-        array_push($dataFitur, $dataParameterSedang);
-        array_push($dataFitur, $dataParameterTSehat);
-        array_push($dataFitur, $dataParameterSTSehat);
+        $dataParameter = $proses->get_Parameter_All();
+        $dataParameterBaik = $proses->get_Parameter_Where('baik');
+        $dataParameterSedang = $proses->get_Parameter_Where('sedang');
+        $dataParameterTSehat = $proses->get_Parameter_Where('tidak sehat');
+        $dataParameterSTSehat = $proses->get_Parameter_Where('sangat tidak sehat');
+        $dataFiturBaik = $proses->toArrayFiture($proses->get_Parameter_Where('baik'));
+        $dataFiturSedang = $proses->toArrayFiture($proses->get_Parameter_Where('sedang'));
+        $dataFiturTSehat = $proses->toArrayFiture($proses->get_Parameter_Where('tidak sehat'));
+        $dataFiturSTSehat = $proses->toArrayFiture($proses->get_Parameter_Where('sangat tidak sehat'));
+        array_push($dataFitur, $dataFiturBaik);
+        array_push($dataFitur, $dataFiturSedang);
+        array_push($dataFitur, $dataFiturTSehat);
+        array_push($dataFitur, $dataFiturSTSehat);
         include_once '../views/admin/uji_bayes.php';
       }
     }
@@ -148,5 +153,5 @@
 
     }
   }
-  
+
  ?>
