@@ -31,7 +31,7 @@
           KNN
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="pengujian_knn.php">Pengujian</a>
+          <a class="dropdown-item" href="../../Controller/C_control.php?view=knn">Pengujian</a>
         </div>
       </li>
       <!-- <li class="nav-item active">

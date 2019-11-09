@@ -33,6 +33,10 @@
     if ($_GET['view'] == 'bayes') {
       include_once '../views/admin/pengujian_bayes.php';
     }
+
+    if ($_GET['view'] == 'knn') {
+      include_once '../views/admin/pengujian_knn.php';
+    }
   }
 
   if (@$_GET['aksi']) {
@@ -100,6 +104,19 @@
       array_push($dataFitur, $dataFiturTSehat);
       array_push($dataFitur, $dataFiturSTSehat);
       include_once '../views/admin/klasifikasi_bayes.php';
+    }
+
+    if ($_GET['aksi'] == 'uji_knn') {
+      $cek = $proses->cekData();
+      if (!$cek) {
+        $status = false;
+        include_once '../views/admin/pengujian_knn.php';
+      }
+      else {
+        $dataUji = $proses->toArray($proses->get_DataUji());
+        $dataLatih = $proses->toArray($proses->get_DataLatih());
+        include_once '../views/admin/uji_knn.php';
+      }
     }
   }
 
