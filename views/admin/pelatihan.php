@@ -1,6 +1,5 @@
 <?php
 include_once 'session.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +55,10 @@ include_once 'session.php';
               <tr>
                 <td>Total Data Kategori Sangat Tidak Sehat</td>
                 <td><?php echo $data[4]; ?></td>
+              </tr>
+              <tr>
+                <td>Total Data Kategori Berbahaya</td>
+                <td><?php echo $data[5]; ?></td>
               </tr>
             </table>
             <?php

@@ -71,14 +71,17 @@
         $dataParameterSedang = $proses->get_Parameter_Where('sedang');
         $dataParameterTSehat = $proses->get_Parameter_Where('tidak sehat');
         $dataParameterSTSehat = $proses->get_Parameter_Where('sangat tidak sehat');
+        $dataParameterBerbahaya = $proses->get_Parameter_Where('berbahaya');
         $dataFiturBaik = $proses->toArrayFiture($proses->get_Parameter_Where('baik'));
         $dataFiturSedang = $proses->toArrayFiture($proses->get_Parameter_Where('sedang'));
         $dataFiturTSehat = $proses->toArrayFiture($proses->get_Parameter_Where('tidak sehat'));
         $dataFiturSTSehat = $proses->toArrayFiture($proses->get_Parameter_Where('sangat tidak sehat'));
+        $dataFiturBerbahaya = $proses->toArrayFiture($proses->get_Parameter_Where('berbahaya'));
         array_push($dataFitur, $dataFiturBaik);
         array_push($dataFitur, $dataFiturSedang);
         array_push($dataFitur, $dataFiturTSehat);
         array_push($dataFitur, $dataFiturSTSehat);
+        array_push($dataFitur, $dataFiturBerbahaya);
         include_once '../views/admin/uji_bayes.php';
       }
     }
@@ -95,14 +98,17 @@
       $dataParameterSedang = $proses->get_Parameter_Where('sedang');
       $dataParameterTSehat = $proses->get_Parameter_Where('tidak sehat');
       $dataParameterSTSehat = $proses->get_Parameter_Where('sangat tidak sehat');
+      $dataParameterBerbahaya = $proses->get_Parameter_Where('berbahaya');
       $dataFiturBaik = $proses->toArrayFiture($proses->get_Parameter_Where('baik'));
       $dataFiturSedang = $proses->toArrayFiture($proses->get_Parameter_Where('sedang'));
       $dataFiturTSehat = $proses->toArrayFiture($proses->get_Parameter_Where('tidak sehat'));
       $dataFiturSTSehat = $proses->toArrayFiture($proses->get_Parameter_Where('sangat tidak sehat'));
+      $dataFiturBerbahaya = $proses->toArrayFiture($proses->get_Parameter_Where('berbahaya'));
       array_push($dataFitur, $dataFiturBaik);
       array_push($dataFitur, $dataFiturSedang);
       array_push($dataFitur, $dataFiturTSehat);
       array_push($dataFitur, $dataFiturSTSehat);
+      array_push($dataFitur, $dataFiturBerbahaya);
       include_once '../views/admin/klasifikasi_bayes.php';
     }
 

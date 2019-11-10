@@ -168,19 +168,23 @@
       $countSedang = $this->getTotalDataWhere('tb_data_latih', 'kategori', 'sedang');
       $countTSehat = $this->getTotalDataWhere('tb_data_latih', 'kategori', 'tidak sehat');
       $countSTSehat = $this->getTotalDataWhere('tb_data_latih', 'kategori', 'sangat tidak sehat');
+      $countBerbahaya = $this->getTotalDataWhere('tb_data_latih', 'kategori', 'berbahaya');
       $baik = $this->getCiri('baik', $count);
       $sedang = $this->getCiri('sedang', $count);
       $tidakSehat = $this->getCiri('tidak sehat', $count);
       $sangatTdkSehat = $this->getCiri('sangat tidak sehat', $count);
+      $berbahaya = $this->getCiri('berbahaya', $count);
       $this->DBS->updateParameter('baik', $baik, $today);
       $this->DBS->updateParameter('sedang', $sedang, $today);
       $this->DBS->updateParameter('tidak sehat', $tidakSehat, $today);
       $this->DBS->updateParameter('sangat tidak sehat', $sangatTdkSehat, $today);
+      $this->DBS->updateParameter('berbahaya', $berbahaya, $today);
       array_push($out, $count);
       array_push($out, $countBaik);
       array_push($out, $countSedang);
       array_push($out, $countTSehat);
       array_push($out, $countSTSehat);
+      array_push($out, $countBerbahaya);
       return $out;
     }
 

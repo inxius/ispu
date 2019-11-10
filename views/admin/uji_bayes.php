@@ -1,9 +1,7 @@
 <?php
+  include_once 'session.php';
   $dataFiturEnc = json_encode($dataFitur);
   $dataUjiEnc = json_encode($dataUji);
-  // echo "<pre>";
-  // print_r($dataUji);
-  // echo "</pre>";
  ?>
 
  <!DOCTYPE html>
@@ -39,7 +37,8 @@
      var probAkhir = u_getProbAkhir(likelihood);
      var KatBayes = u_getKatBayes(probAkhir, dataUji);
      var akurasiBayes = u_getAkurasiBayes(KatBayes);
-     console.log(akurasiBayes);
+     console.log(fitur);
+     console.log(probFitur);
      </script>
    </head>
    <body>
@@ -90,7 +89,7 @@
              <h1 style="color:white;"><b>Nilai Parameter</b></h1>
            </div>
            <div class="row d-flex justify-content-center align-items-center">
-             <div class="col-md-3 col-sm-3 text-center">
+             <div class="col-md-4 col-sm-4 text-center">
                <h2 style="color:white;"><b>Baik</b></h2>
                <hr>
                <table class="table table-responsive table-borderless table-striped">
@@ -113,7 +112,7 @@
                </table>
              </div>
 
-             <div class="col-md-3 col-sm-3 text-center border-left">
+             <div class="col-md-4 col-sm-4 text-center border-left">
                <h2 style="color:white;"><b>Sedang</b></h2>
                <hr>
                <table class="table table-responsive table-borderless table-striped">
@@ -136,7 +135,7 @@
                </table>
              </div>
 
-             <div class="col-md-3 col-sm-3 text-center border-left">
+             <div class="col-md-4 col-sm-4 text-center border-left">
                <h2 style="color:white;"><b>Tidak Sehat</b></h2>
                <hr>
                <table class="table table-responsive table-borderless table-striped">
@@ -159,7 +158,18 @@
                </table>
              </div>
 
-             <div class="col-md-3 col-sm-3 text-center border-left">
+           </div>
+         </div>
+       </div>
+
+       <div class="jumbotron jumbotron-fluid bg-dark">
+         <div class="jumbotron-background">
+           <img src="../../assets/img/color1.jpg" class="blur ">
+         </div>
+
+         <div class="container content-small">
+           <div class="row d-flex justify-content-center align-items-center">
+             <div class="col-md-4 col-sm-4 text-center">
                <h4 style="color:white;"><b>Sangat Tidak Sehat</b></h4>
                <hr>
                <table class="table table-responsive table-borderless table-striped">
@@ -171,6 +181,29 @@
                  </thead>
                  <tbody class="table-wrapper-scroll-y my-custom-scrollbar">
                 <?php while ($row = mysqli_fetch_array($dataParameterSTSehat)) {
+                  ?>
+                  <tr>
+                    <td class="text-center" width="170px"><?php echo $row['parameter']; ?></td>
+                    <td class="text-center" width="120px"><?php echo $row['nilai']; ?></td>
+                  </tr>
+                  <?php
+                } ?>
+                 </tbody>
+               </table>
+             </div>
+
+             <div class="col-md-4 col-sm-4 text-center border-left">
+               <h4 style="color:white;"><b>Berbahaya</b></h4>
+               <hr>
+               <table class="table table-responsive table-borderless table-striped">
+                 <thead class="border-bottom">
+                   <tr>
+                     <th class="" width="150px">Parameter</th>
+                     <th class="text-center" width="150px">Nilai</th>
+                   </tr>
+                 </thead>
+                 <tbody class="table-wrapper-scroll-y my-custom-scrollbar">
+                <?php while ($row = mysqli_fetch_array($dataParameterBerbahaya)) {
                   ?>
                   <tr>
                     <td class="text-center" width="170px"><?php echo $row['parameter']; ?></td>
@@ -304,6 +337,39 @@
          </div>
        </div>
 
+       <div class="jumbotron jumbotron-fluid bg-dark">
+         <div class="jumbotron-background">
+           <img src="../../assets/img/color1.jpg" class="blur ">
+         </div>
+
+         <div class="container content-small">
+           <div class="row d-flex justify-content-center align-items-center">
+             <div class="col-md-6 col-sm-6 text-center">
+               <h3 style="color:white;">p(PM10 | BERBAHAYA)</h3>
+               <hr>
+               <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+                 <?php
+                 // for ($i=0; $i < count($dataUji); $i++) {
+                 for ($i=0; $i < 10; $i++) {
+                   ?>
+                   <tr class="d-flex align-items-center">
+                     <td><?php echo "DT".($i+1); ?></td>
+                     <td><p>
+                       <sup>1</sup>&frasl;<sub>&radic; <span style="text-decoration:overline;">2 &pi; x <?php echo $dataFiturBerbahaya[5]; ?></span> </sub>
+                       x e <sup><sup>-(<?php echo $dataUji[$i][2]." - ".$dataFiturBerbahaya[0]; ?> )<sup>2</sup> </sup>&frasl;<sub>2 x <?php echo $dataFiturBerbahaya[5]; ?></sub></sup>
+                     </p></td>
+                     <td>=</td>
+                     <td><script>document.write(probFitur[<?php echo $i; ?>][4][0])</script></td>
+                   </tr>
+                   <?php
+                 }
+                  ?>
+               </table>
+             </div>
+           </div>
+         </div>
+       </div>
+
 
        <div class="jumbotron jumbotron-fluid bg-dark">
          <div class="jumbotron-background">
@@ -408,6 +474,39 @@
                      </p></td>
                      <td>=</td>
                      <td><script>document.write(probFitur[<?php echo $i; ?>][3][1])</script></td>
+                   </tr>
+                   <?php
+                 }
+                  ?>
+               </table>
+             </div>
+           </div>
+         </div>
+       </div>
+
+       <div class="jumbotron jumbotron-fluid bg-dark">
+         <div class="jumbotron-background">
+           <img src="../../assets/img/color1.jpg" class="blur ">
+         </div>
+
+         <div class="container content-small">
+           <div class="row d-flex justify-content-center align-items-center">
+             <div class="col-md-6 col-sm-6 text-center border-left">
+               <h3 style="color:white;">p(SO2 | BERBAHAYA)</h3>
+               <hr>
+               <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+                 <?php
+                 // for ($i=0; $i < count($dataUji); $i++) {
+                 for ($i=0; $i < 10; $i++) {
+                   ?>
+                   <tr class="d-flex align-items-center">
+                     <td><?php echo "DT".($i+1); ?></td>
+                     <td><p>
+                       <sup>1</sup>&frasl;<sub>&radic; <span style="text-decoration:overline;">2 &pi; x <?php echo $dataFiturBerbahaya[6]; ?></span> </sub>
+                       x e <sup><sup>-(<?php echo $dataUji[$i][3]." - ".$dataFiturBerbahaya[1]; ?> )<sup>2</sup> </sup>&frasl;<sub>2 x <?php echo $dataFiturBerbahaya[6]; ?></sub></sup>
+                     </p></td>
+                     <td>=</td>
+                     <td><script>document.write(probFitur[<?php echo $i; ?>][4][1])</script></td>
                    </tr>
                    <?php
                  }
@@ -539,6 +638,39 @@
          <div class="container content-small">
            <div class="row d-flex justify-content-center align-items-center">
              <div class="col-md-6 col-sm-6 text-center">
+               <h3 style="color:white;">p(CO | BERBAHAYA)</h3>
+               <hr>
+               <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+                 <?php
+                 // for ($i=0; $i < count($dataUji); $i++) {
+                 for ($i=0; $i < 10; $i++) {
+                   ?>
+                   <tr class="d-flex align-items-center">
+                     <td><?php echo "DT".($i+1); ?></td>
+                     <td><p>
+                       <sup>1</sup>&frasl;<sub>&radic; <span style="text-decoration:overline;">2 &pi; x <?php echo $dataFiturBerbahaya[7]; ?></span> </sub>
+                       x e <sup><sup>-(<?php echo $dataUji[$i][4]." - ".$dataFiturBerbahaya[2]; ?> )<sup>2</sup> </sup>&frasl;<sub>2 x <?php echo $dataFiturBerbahaya[7]; ?></sub></sup>
+                     </p></td>
+                     <td>=</td>
+                     <td><script>document.write(probFitur[<?php echo $i; ?>][4][2])</script></td>
+                   </tr>
+                   <?php
+                 }
+                  ?>
+               </table>
+             </div>
+           </div>
+         </div>
+       </div>
+
+       <div class="jumbotron jumbotron-fluid bg-dark">
+         <div class="jumbotron-background">
+           <img src="../../assets/img/color1.jpg" class="blur ">
+         </div>
+
+         <div class="container content-small">
+           <div class="row d-flex justify-content-center align-items-center">
+             <div class="col-md-6 col-sm-6 text-center">
                <h3 style="color:white;">p(O3 | BAIK)</h3>
                <hr>
                <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
@@ -634,6 +766,39 @@
                      </p></td>
                      <td>=</td>
                      <td><script>document.write(probFitur[<?php echo $i; ?>][3][3])</script></td>
+                   </tr>
+                   <?php
+                 }
+                  ?>
+               </table>
+             </div>
+           </div>
+         </div>
+       </div>
+
+       <div class="jumbotron jumbotron-fluid bg-dark">
+         <div class="jumbotron-background">
+           <img src="../../assets/img/color1.jpg" class="blur ">
+         </div>
+
+         <div class="container content-small">
+           <div class="row d-flex justify-content-center align-items-center">
+             <div class="col-md-6 col-sm-6 text-center">
+               <h3 style="color:white;">p(O3 | BERBAHAYA)</h3>
+               <hr>
+               <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+                 <?php
+                 // for ($i=0; $i < count($dataUji); $i++) {
+                 for ($i=0; $i < 10; $i++) {
+                   ?>
+                   <tr class="d-flex align-items-center">
+                     <td><?php echo "DT".($i+1); ?></td>
+                     <td><p>
+                       <sup>1</sup>&frasl;<sub>&radic; <span style="text-decoration:overline;">2 &pi; x <?php echo $dataFiturBerbahaya[8]; ?></span> </sub>
+                       x e <sup><sup>-(<?php echo $dataUji[$i][5]." - ".$dataFiturBerbahaya[3]; ?> )<sup>2</sup> </sup>&frasl;<sub>2 x <?php echo $dataFiturBerbahaya[8]; ?></sub></sup>
+                     </p></td>
+                     <td>=</td>
+                     <td><script>document.write(probFitur[<?php echo $i; ?>][4][3])</script></td>
                    </tr>
                    <?php
                  }
@@ -763,6 +928,39 @@
          </div>
 
          <div class="container content-small">
+           <div class="row d-flex justify-content-center align-items-center">
+             <div class="col-md-6 col-sm-6 text-center">
+               <h3 style="color:white;">p(NO2 | BERBAHAYA)</h3>
+               <hr>
+               <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+                 <?php
+                 // for ($i=0; $i < count($dataUji); $i++) {
+                 for ($i=0; $i < 10; $i++) {
+                   ?>
+                   <tr class="d-flex align-items-center">
+                     <td><?php echo "DT".($i+1); ?></td>
+                     <td><p>
+                       <sup>1</sup>&frasl;<sub>&radic; <span style="text-decoration:overline;">2 &pi; x <?php echo $dataFiturBerbahaya[9]; ?></span> </sub>
+                       x e <sup><sup>-(<?php echo $dataUji[$i][6]." - ".$dataFiturBerbahaya[4]; ?> )<sup>2</sup> </sup>&frasl;<sub>2 x <?php echo $dataFiturBerbahaya[9]; ?></sub></sup>
+                     </p></td>
+                     <td>=</td>
+                     <td><script>document.write(probFitur[<?php echo $i; ?>][4][4])</script></td>
+                   </tr>
+                   <?php
+                 }
+                  ?>
+               </table>
+             </div>
+           </div>
+         </div>
+       </div>
+
+       <div class="jumbotron jumbotron-fluid bg-dark">
+         <div class="jumbotron-background">
+           <img src="../../assets/img/color1.jpg" class="blur ">
+         </div>
+
+         <div class="container content-small">
            <div class="border-bottom border-top d-flex justify-content-left align-items-center">
              <h3 style="color:white;"><b>2. Perhitungan Likelihood</b></h3>
            </div>
@@ -777,7 +975,7 @@
                      <td colspan="4" class="text-center"><?php echo "DT".($i+1); ?></td>
                    </tr>
                    <?php
-                   for ($j=0; $j < 4; $j++) {
+                   for ($j=0; $j < 5; $j++) {
                      echo "<tr>";
                      if ($j == 0) {
                        echo "<td>Baik</>";
@@ -790,6 +988,9 @@
                      }
                      if ($j == 3) {
                        echo "<td>Sangat Tidak Sehat</>";
+                     }
+                     if ($j == 4) {
+                       echo "<td>Berbahaya</>";
                      }
                      ?>
                      <td>
@@ -832,7 +1033,7 @@
                      <td colspan="4" class="text-center"><?php echo "DT".($i+1); ?></td>
                    </tr>
                    <?php
-                   for ($j=0; $j < 4; $j++) {
+                   for ($j=0; $j < 5; $j++) {
                      echo '<tr class="text-left">';
                      if ($j == 0) {
                        ?>
@@ -840,7 +1041,8 @@
                        <td> <h5> =
                          <sup><script>document.write(likelihood[<?php echo $i; ?>][0]);</script></sup>&frasl;
                          <sub><script>document.write(likelihood[<?php echo $i; ?>][0]+"+"+likelihood[<?php echo $i; ?>][1]+
-                         "+"+likelihood[<?php echo $i; ?>][2]+"+"+likelihood[<?php echo $i; ?>][3]);</script></sub>
+                         "+"+likelihood[<?php echo $i; ?>][2]+"+"+likelihood[<?php echo $i; ?>][3]+
+                         "+"+likelihood[<?php echo $i; ?>][4]);</script></sub>
                        </h5> </td>
                        <td> = <script>document.write(probAkhir[<?php echo $i; ?>][<?php echo $j; ?>]);</script></td>
                        <?php
@@ -851,7 +1053,8 @@
                        <td> <h5> =
                          <sup><script>document.write(likelihood[<?php echo $i; ?>][1]);</script></sup>&frasl;
                          <sub><script>document.write(likelihood[<?php echo $i; ?>][0]+"+"+likelihood[<?php echo $i; ?>][1]+
-                         "+"+likelihood[<?php echo $i; ?>][2]+"+"+likelihood[<?php echo $i; ?>][3]);</script></sub>
+                         "+"+likelihood[<?php echo $i; ?>][2]+"+"+likelihood[<?php echo $i; ?>][3]+
+                         "+"+likelihood[<?php echo $i; ?>][4]);</script></sub>
                        </h5> </td>
                        <td> = <script>document.write(probAkhir[<?php echo $i; ?>][<?php echo $j; ?>]);</script></td>
                        <?php
@@ -862,7 +1065,8 @@
                        <td> <h5> =
                          <sup><script>document.write(likelihood[<?php echo $i; ?>][2]);</script></sup>&frasl;
                          <sub><script>document.write(likelihood[<?php echo $i; ?>][0]+"+"+likelihood[<?php echo $i; ?>][1]+
-                         "+"+likelihood[<?php echo $i; ?>][2]+"+"+likelihood[<?php echo $i; ?>][3]);</script></sub>
+                         "+"+likelihood[<?php echo $i; ?>][2]+"+"+likelihood[<?php echo $i; ?>][3]+
+                         "+"+likelihood[<?php echo $i; ?>][4]);</script></sub>
                        </h5> </td>
                        <td> = <script>document.write(probAkhir[<?php echo $i; ?>][<?php echo $j; ?>]);</script></td>
                        <?php
@@ -873,7 +1077,20 @@
                        <td> <h5> =
                          <sup><script>document.write(likelihood[<?php echo $i; ?>][3]);</script></sup>&frasl;
                          <sub><script>document.write(likelihood[<?php echo $i; ?>][0]+"+"+likelihood[<?php echo $i; ?>][1]+
-                         "+"+likelihood[<?php echo $i; ?>][2]+"+"+likelihood[<?php echo $i; ?>][3]);</script></sub>
+                         "+"+likelihood[<?php echo $i; ?>][2]+"+"+likelihood[<?php echo $i; ?>][3]+
+                         "+"+likelihood[<?php echo $i; ?>][4]);</script></sub>
+                       </h5> </td>
+                       <td> = <script>document.write(probAkhir[<?php echo $i; ?>][<?php echo $j; ?>]);</script></td>
+                       <?php
+                     }
+                     if ($j == 4) {
+                       ?>
+                       <td>Berbahaya</td>
+                       <td> <h5> =
+                         <sup><script>document.write(likelihood[<?php echo $i; ?>][4]);</script></sup>&frasl;
+                         <sub><script>document.write(likelihood[<?php echo $i; ?>][0]+"+"+likelihood[<?php echo $i; ?>][1]+
+                         "+"+likelihood[<?php echo $i; ?>][2]+"+"+likelihood[<?php echo $i; ?>][3]+
+                         "+"+likelihood[<?php echo $i; ?>][4]);</script></sub>
                        </h5> </td>
                        <td> = <script>document.write(probAkhir[<?php echo $i; ?>][<?php echo $j; ?>]);</script></td>
                        <?php

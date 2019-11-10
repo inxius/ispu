@@ -57,7 +57,7 @@ function k_getProbAkhir(data){
 }
 
 function k_getKat(data){
-  var max = Math.max(data[0], data[1], data[2], data[3]);
+  var max = Math.max(data[0], data[1], data[2], data[3], data[4]);
   if (data[0] == max) {
     return "baik";
   }
@@ -69,6 +69,9 @@ function k_getKat(data){
   }
   else if (data[3] == max) {
     return "sangat tidak sehat";
+  }
+  else if (data[4] == max) {
+    return "berbahaya";
   }
   else {
     return "error";
@@ -144,6 +147,7 @@ function k_getKatKnn(dataSmallJarak){
   var sedang = 0;
   var tidakSehat = 0;
   var sangatTdkSehat = 0;
+  var berbahaya = 0
   for (var i = 0; i < dataSmallJarak.length; i++) {
     if (dataSmallJarak[i][2] == "baik") {
       baik++;
@@ -157,13 +161,16 @@ function k_getKatKnn(dataSmallJarak){
     else if (dataSmallJarak[i][2] = "sangat tidak sehat") {
       sangatTdkSehat++;
     }
+    else if (dataSmallJarak[i][2] = "berbahaya") {
+      berbahaya++;
+    }
     else {
       console.log("Error In getKatKnn");
       break;
     }
   }
 
-  max = Math.max(baik, sedang, tidakSehat, sangatTdkSehat);
+  max = Math.max(baik, sedang, tidakSehat, sangatTdkSehat, berbahaya);
   if (baik == max) {
     return "baik";
   }
@@ -175,6 +182,9 @@ function k_getKatKnn(dataSmallJarak){
   }
   else if (sangatTdkSehat == max) {
     return "sangat tidak sehat";
+  }
+  else if (sangatTdkSehat == max) {
+    return "berbahaya";
   }
   else {
     return "error";
@@ -222,7 +232,7 @@ function u_getLilelihood(data){
   var out = new Array();
   for (var i = 0; i < data.length; i++) {
     var temp = new Array();
-    for (var j = 0; j < 4; j++) {
+    for (var j = 0; j < 5; j++) {
       var likelihood = 1;
       for (var k = 0; k < 6; k++) {
         likelihood = (parseFloat(likelihood) * parseFloat(data[i][j][k])).toPrecision(6);
@@ -238,8 +248,8 @@ function u_getProbAkhir(likelihood){
   var out = new Array();
   for (var i = 0; i < likelihood.length; i++) {
     var temp = new Array();
-    var sum = (parseFloat(likelihood[i][0]) + parseFloat(likelihood[i][1]) + parseFloat(likelihood[i][2]) + parseFloat(likelihood[i][3]));
-    for (var j = 0; j < 4; j++) {
+    var sum = (parseFloat(likelihood[i][0]) + parseFloat(likelihood[i][1]) + parseFloat(likelihood[i][2]) + parseFloat(likelihood[i][3]) + parseFloat(likelihood[i][4]));
+    for (var j = 0; j < 5; j++) {
       var probAkhir = (likelihood[i][j] / sum).toPrecision(6);
       temp.push(probAkhir);
     }
@@ -251,7 +261,7 @@ function u_getProbAkhir(likelihood){
 function u_getKatBayes(probAkhir, dataUji){
   var out = new Array();
   for (var i = 0; i < probAkhir.length; i++) {
-    var max = Math.max(probAkhir[i][0], probAkhir[i][1], probAkhir[i][2], probAkhir[i][3]);
+    var max = Math.max(probAkhir[i][0], probAkhir[i][1], probAkhir[i][2], probAkhir[i][3], probAkhir[i][4]);
     if (probAkhir[i][0] == max) {
       var kat = "baik";
     }
@@ -263,6 +273,9 @@ function u_getKatBayes(probAkhir, dataUji){
     }
     else if (probAkhir[i][3] == max) {
       var kat = "sangat tidak sehat";
+    }
+    else if (probAkhir[i][3] == max) {
+      var kat = "berbahaya";
     }
 
     if (kat == dataUji[i][7]) {
@@ -385,6 +398,7 @@ function u_getKatKnn(smallJarak, dataUji){
     var sedang = 0;
     var tidakSehat = 0;
     var sangatTdkSehat = 0;
+    var berbahaya = 0;
     var target = dataUji[i][7];
 
     temp.push(target);
@@ -402,13 +416,16 @@ function u_getKatKnn(smallJarak, dataUji){
       else if (smallJarak[i][j][2] == "sangat tidak sehat") {
         sangatTdkSehat++;
       }
+      else if (smallJarak[i][j][2] == "berbahaya") {
+        berbahaya++;
+      }
       else {
         console.log("Error In getKatKnn");
         break;
       }
 
     }
-    max = Math.max(baik, sedang, tidakSehat, sangatTdkSehat);
+    max = Math.max(baik, sedang, tidakSehat, sangatTdkSehat, berbahaya);
     if (baik == max) {
       var kat = "baik";
     }
@@ -420,6 +437,9 @@ function u_getKatKnn(smallJarak, dataUji){
     }
     else if (sangatTdkSehat == max) {
       var kat = "sangat tidak sehat";
+    }
+    else if (berbahaya == max) {
+      var kat = "berbahaya";
     }
     else {
       console.log("error in get Kat Knn");

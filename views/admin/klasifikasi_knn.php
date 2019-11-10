@@ -1,4 +1,5 @@
 <?php
+  include_once 'session.php';
   $dataLatihEnc = json_encode($dataLatih);
   $dataTesEnc = json_encode($dataTes);
  ?>

@@ -1,5 +1,4 @@
 <?php
-session_start();
 if(@$_SESSION['status'] == "login"){
     header("location:admin/home.php");
 }
