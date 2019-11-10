@@ -118,6 +118,24 @@
         include_once '../views/admin/uji_knn.php';
       }
     }
+
+    if ($_GET['aksi'] == 'klasifikasi_knn') {
+      $cek = $proses->cekData();
+      if (!$cek) {
+        $status = false;
+        include_once '../views/admin/pengujian_knn.php';
+      }
+      else {
+        $dataTes = Array();
+        array_push($dataTes, $_GET['pm10']);
+        array_push($dataTes, $_GET['so2']);
+        array_push($dataTes, $_GET['co']);
+        array_push($dataTes, $_GET['o3']);
+        array_push($dataTes, $_GET['no2']);
+        $dataLatih = $proses->toArray($proses->get_DataLatih());
+        include_once '../views/admin/klasifikasi_knn.php';
+      }
+    }
   }
 
   if (@$_POST['aksilogin']) {

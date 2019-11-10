@@ -76,6 +76,112 @@ function k_getKat(data){
 }
 
 
+// KLASIFIKASI ZONA KNN //
+
+function k_getJarakEuclidian(dataLatih, dataTes){
+  var out = new Array();
+  for (var i = 0; i < dataLatih.length; i++) {
+    var pm10 = Math.pow((dataLatih[i][2] - dataTes[0]),2).toFixed(5);
+    var so2 = Math.pow((dataLatih[i][3] - dataTes[1]),2).toFixed(5);
+    var co = Math.pow((dataLatih[i][4] - dataTes[2]),2).toFixed(5);
+    var o3 = Math.pow((dataLatih[i][5] - dataTes[3]),2).toFixed(5);
+    var no2 = Math.pow((dataLatih[i][6] - dataTes[4]),2).toFixed(5);
+    var jarak = Math.sqrt(parseFloat(pm10) + parseFloat(so2) + parseFloat(co) + parseFloat(o3) + parseFloat(no2)).toFixed(5);
+    out.push(jarak);
+  }
+  return out;
+}
+
+function k_getJarakManhattan(dataLatih, dataTes){
+  var out = new Array();
+  for (var i = 0; i < dataLatih.length; i++) {
+    var pm10 = Math.abs((dataLatih[i][2] - dataTes[0]));
+    var so2 = Math.abs((dataLatih[i][3] - dataTes[1]));
+    var co = Math.abs((dataLatih[i][4] - dataTes[2]));
+    var o3 = Math.abs((dataLatih[i][5] - dataTes[3]));
+    var no2 = Math.abs((dataLatih[i][6] - dataTes[4]));
+    var jarak = parseFloat(pm10) + parseFloat(so2) + parseFloat(co) + parseFloat(o3) + parseFloat(no2);
+    out.push(jarak);
+  }
+  return out;
+}
+
+function k_getJarakMinkowski(dataLatih, dataTes){
+  var Lambda = 3;
+  var out = new Array();
+  for (var i = 0; i < dataLatih.length; i++) {
+    var pm10 = Math.pow(Math.abs((dataLatih[i][2] - dataTes[0])), Lambda);
+    // console.log(pm10);
+    var so2 = Math.pow(Math.abs((dataLatih[i][3] - dataTes[1])), Lambda);
+    var co = Math.pow(Math.abs((dataLatih[i][4] - dataTes[2])), Lambda);
+    var o3 = Math.pow(Math.abs((dataLatih[i][5] - dataTes[3])), Lambda);
+    var no2 = Math.pow(Math.abs((dataLatih[i][6] - dataTes[4])), Lambda);
+    var jarak = Math.pow((parseFloat(pm10) + parseFloat(so2) + parseFloat(co) + parseFloat(o3) + parseFloat(no2)), 1/Lambda).toFixed(5);
+    out.push(jarak);
+  }
+  return out;
+}
+
+function k_getSmallJarak(jarak, dataLatih, filter){
+  var out = new Array();
+  var jarak_proto = jarak.slice(0);
+  for (var i = 0; i < 5; i++) {
+    if (filter == 'manhattan') {
+      var min = Math.min.apply(null, jarak_proto);
+    }
+    else {
+      var min = Math.min.apply(null, jarak_proto).toFixed(5);
+    }
+    var index = jarak_proto.indexOf(min);
+    jarak_proto[index] = 1000;
+    out.push([index, min, dataLatih[index][7]]);
+  }
+  return out;
+}
+
+function k_getKatKnn(dataSmallJarak){
+  var baik = 0;
+  var sedang = 0;
+  var tidakSehat = 0;
+  var sangatTdkSehat = 0;
+  for (var i = 0; i < dataSmallJarak.length; i++) {
+    if (dataSmallJarak[i][2] == "baik") {
+      baik++;
+    }
+    else if (dataSmallJarak[i][2] == "sedang") {
+      sedang++;
+    }
+    else if (dataSmallJarak[i][2] = "tidak sehat") {
+      tidakSehat++;
+    }
+    else if (dataSmallJarak[i][2] = "sangat tidak sehat") {
+      sangatTdkSehat++;
+    }
+    else {
+      console.log("Error In getKatKnn");
+      break;
+    }
+  }
+
+  max = Math.max(baik, sedang, tidakSehat, sangatTdkSehat);
+  if (baik == max) {
+    return "baik";
+  }
+  else if (sedang == max) {
+    return "sedang";
+  }
+  else if (tidakSehat == max) {
+    return "tidak sehat";
+  }
+  else if (sangatTdkSehat == max) {
+    return "sangat tidak sehat";
+  }
+  else {
+    return "error";
+  }
+}
+
+
 // UJI ZONE //
 
 // UJI NAIVE BAYES //
