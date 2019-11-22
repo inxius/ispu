@@ -29,6 +29,20 @@
       return $query;
     }
 
+    function action_SelectLimit($table){
+      $db = $this->mysqli;
+      $sql = "SELECT * FROM ".$table." limit 15";
+      $query = $db->query($sql) or die ($db->error);
+      return $query;
+    }
+
+    function action_SelectLimitNext($table, $next){
+      $db = $this->mysqli;
+      $sql = "SELECT * FROM ".$table." WHERE id > ".$next." limit 15";
+      $query = $db->query($sql) or die ($db->error);
+      return $query;
+    }
+
     function action_Select_Where($table, $where, $key){
       $db = $this->mysqli;
       $sql = "SELECT * FROM ".$table." WHERE ".$where." = '".$key."'";

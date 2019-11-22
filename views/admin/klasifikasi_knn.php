@@ -1,7 +1,5 @@
 <?php
   include_once 'session.php';
-  $dataLatihEnc = json_encode($dataLatih);
-  $dataTesEnc = json_encode($dataTes);
  ?>
 
 
@@ -137,26 +135,9 @@
 
           <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-12 col-sm-12 text-center">
-              <table class="table table-responsive table-borderless table-striped">
+              <table class="table table-responsive table-borderless table-striped" id="tbjarak">
                 <tbody class="table-wrapper-scroll-y my-custom-scrollbar">
-                  <?php
-                  for ($i=0; $i < count($dataLatih); $i++) {
-                    ?>
-                    <tr class="d-flex align-items-center">
-                      <td><?php echo "DT".($i+1) ?></td>
-                      <td>
-                        |<?php echo $dataTes[0]." - ".$dataLatih[$i][2] ?>| +
-                        |<?php echo $dataTes[1]." - ".$dataLatih[$i][3] ?>| +
-                        |<?php echo $dataTes[2]." - ".$dataLatih[$i][4] ?>| +
-                        |<?php echo $dataTes[3]." - ".$dataLatih[$i][5] ?>| +
-                        |<?php echo $dataTes[4]." - ".$dataLatih[$i][6] ?>|
-                      </td>
-                      <td> = </td>
-                      <td><script>document.write(jarak_Manhattan[<?php echo $i; ?>]);</script></td>
-                    </tr>
-                    <?php
-                  }
-                   ?>
+
                 </tbody>
               </table>
             </div>
@@ -227,6 +208,39 @@
         $('.hidden').hide();
         $('.show').show();
       });
+
+      $(document).ready(function(){
+        for (var i = 0; i < 15; i++) {
+          var coco ='<tr class="d-flex align-items-center"><td>DT'
+          +(i + 1)+"</td><td>|"
+          +dataTes[0]+" - "+dataLatih[i][2]+"| + |"
+          +dataTes[1]+" - "+dataLatih[i][3]+"| + |"
+          +dataTes[2]+" - "+dataLatih[i][4]+"| + |"
+          +dataTes[3]+" - "+dataLatih[i][5]+"| + |"
+          +dataTes[4]+" - "+dataLatih[i][6]+"|</td><td> = </td><td>"
+          +jarak_Manhattan[i]+"</td></tr>";
+          $('#tbjarak tbody').append(coco);
+        }
+      });
+
+      $('#tbjarak tbody').scroll(function(){
+        if ($('#tbjarak tbody').scrollTop() == $('#tbjarak tbody').prop('scrollHeight') - $('#tbjarak tbody').prop('offsetHeight')) {
+          var isi = $('#tbjarak tbody tr').length;
+          for (var i = 0; i < 15; i++) {
+            var j = isi + i;
+            var coco ='<tr class="d-flex align-items-center"><td>DT'
+            +(j + 1)+"</td><td>|"
+            +dataTes[0]+" - "+dataLatih[j][2]+"| + |"
+            +dataTes[1]+" - "+dataLatih[j][3]+"| + |"
+            +dataTes[2]+" - "+dataLatih[j][4]+"| + |"
+            +dataTes[3]+" - "+dataLatih[j][5]+"| + |"
+            +dataTes[4]+" - "+dataLatih[j][6]+"|</td><td> = </td><td>"
+            +jarak_Manhattan[j]+"</td></tr>";
+            $('#tbjarak tbody').append(coco);
+          }
+        }
+      });
+      
     });
     </script>
   </body>

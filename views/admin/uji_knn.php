@@ -124,37 +124,13 @@ $dataUjiEnc = json_encode($dataUji);
 
         <div class="row d-flex justify-content-center align-items-center">
           <div class="col-md-12 col-sm-12 text-center">
-            <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
-              <?php
-              // for ($i=0; $i < count($dataUji); $i++) {
-              for ($i=0; $i < 10; $i++) {
-                echo "<tr>";
-                echo '<td colspan="4" class="text-center">DT Uji '.($i + 1).'</td>';
-                echo "</tr>";
-                // for ($j=0; $j < count($dataLatih); $j++) {
-                for ($j=0; $j < 5; $j++) {
-                  ?>
-                  <tr>
-                    <td>DT Latih <?php echo $j + 1; ?></td>
-                    <td><h5>
-                      <sub>&radic; <span style="text-decoration:overline;">(<?php echo $dataUji[$i][2]." - ".$dataLatih[$j][2] ?>)<sup>2</sup> +
-                        (<?php echo $dataUji[$i][3]." - ".$dataLatih[$j][3] ?>)<sup>2</sup> +
-                        (<?php echo $dataUji[$i][4]." - ".$dataLatih[$j][4] ?>)<sup>2</sup> +
-                        (<?php echo $dataUji[$i][5]." - ".$dataLatih[$j][5] ?>)<sup>2</sup> +
-                        (<?php echo $dataUji[$i][6]." - ".$dataLatih[$j][6] ?>)<sup>2</sup> + </span></sub>
-                      </h5></td>
-                      <td> = </td>
-                      <td><script>document.write(jarak_Eucli[<?php echo $i ?>][<?php echo $j ?>])</script></td>
-                    </tr>
-                    <?php
-                  }
-                }
-                ?>
-              </table>
-            </div>
+            <table id="tbjarak_eucli" class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+
+            </table>
           </div>
         </div>
       </div>
+    </div>
 
 
       <div class="jumbotron jumbotron-fluid bg-dark">
@@ -169,44 +145,8 @@ $dataUjiEnc = json_encode($dataUji);
 
           <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-12 col-sm-12 text-center">
-              <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
-                <?php
-                // for ($i=0; $i < count($dataUji); $i++) {
-                for ($i=0; $i < 10; $i++) {
-                  ?>
-                  <tr>
-                    <td colspan="8" class="text-center">DT Uji <?php echo $i + 1; ?></td>
-                  </tr>
-                  <tr>
-                    <td>Data Latih</td>
-                    <td>PM10</td>
-                    <td>SO2</td>
-                    <td>CO</td>
-                    <td>O3</td>
-                    <td>NO2</td>
-                    <td>Kategori</td>
-                    <td>Jarak</td>
-                  </tr>
-                  <?php
-                  for ($j=0; $j < 5; $j++) {
-                    ?>
-                    <script type="text/javascript">
-                    var i = smallJarak_Eucli[<?php echo $i; ?>][<?php echo $j; ?>][0];
-                    </script>
-                    <tr>
-                      <td>DT Latih <script>document.write(i+1)</script></td>
-                      <td><script>document.write(dataLatih[i][2])</script></td>
-                      <td><script>document.write(dataLatih[i][3])</script></td>
-                      <td><script>document.write(dataLatih[i][4])</script></td>
-                      <td><script>document.write(dataLatih[i][5])</script></td>
-                      <td><script>document.write(dataLatih[i][6])</script></td>
-                      <td><script>document.write(dataLatih[i][7])</script></td>
-                      <td><script>document.write(smallJarak_Eucli[<?php echo $i; ?>][<?php echo $j; ?>][1])</script></td>
-                    </tr>
-                    <?php
-                  }
-                }
-                ?>
+              <table id="tbsjarak_eucli" class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+
               </table>
             </div>
           </div>
@@ -225,26 +165,19 @@ $dataUjiEnc = json_encode($dataUji);
 
           <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-12 col-sm-12 text-center">
-              <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
-                <tr>
-                  <td>Data Uji</td>
-                  <td>Terget Klasifikasi</td>
-                  <td>Hasil Klasifikasi</td>
-                  <td>Benar / Salah</td>
-                </tr>
-                <?php
-                // for ($i=0; $i < count($dataUji); $i++) {
-                for ($i=0; $i < 10; $i++) {
-                  ?>
+              <table id="tbk_eucli" class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+                <thead>
                   <tr>
-                    <td>DT Uji <?php echo $i + 1; ?></td>
-                    <td><script>document.write(kat_Eucli[<?php echo $i; ?>][0])</script></td>
-                    <td><script>document.write(kat_Eucli[<?php echo $i; ?>][1])</script></td>
-                    <td><script>document.write(kat_Eucli[<?php echo $i; ?>][2])</script></td>
+                    <td>Data Uji</td>
+                    <td>Terget Klasifikasi</td>
+                    <td>Hasil Klasifikasi</td>
+                    <td>Benar / Salah</td>
                   </tr>
-                  <?php
-                }
-                ?>
+                </thead>
+
+                <tbody>
+
+                </tbody>
               </table>
             </div>
           </div>
@@ -267,37 +200,13 @@ $dataUjiEnc = json_encode($dataUji);
 
           <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-12 col-sm-12 text-center">
-              <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
-                <?php
-                // for ($i=0; $i < count($dataUji); $i++) {
-                for ($i=0; $i < 10; $i++) {
-                  echo "<tr>";
-                  echo '<td colspan="4" class="text-center">DT Uji '.($i + 1).'</td>';
-                  echo "</tr>";
-                  // for ($j=0; $j < count($dataLatih); $j++) {
-                  for ($j=0; $j < 5; $j++) {
-                    ?>
-                    <tr>
-                      <td>DT Latih <?php echo $j + 1; ?></td>
-                      <td>
-                        |<?php echo $dataUji[$i][2]." - ".$dataLatih[$j][2] ?>| +
-                        |<?php echo $dataUji[$i][3]." - ".$dataLatih[$j][3] ?>| +
-                        |<?php echo $dataUji[$i][4]." - ".$dataLatih[$j][4] ?>| +
-                        |<?php echo $dataUji[$i][5]." - ".$dataLatih[$j][5] ?>| +
-                        |<?php echo $dataUji[$i][6]." - ".$dataLatih[$j][6] ?>|
-                      </td>
-                      <td> = </td>
-                      <td><script>document.write(jarak_Manhattan[<?php echo $i ?>][<?php echo $j ?>])</script></td>
-                      </tr>
-                      <?php
-                    }
-                  }
-                  ?>
-                </table>
-              </div>
+              <table id="tbjarak_manhat" class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+
+              </table>
             </div>
           </div>
         </div>
+      </div>
 
         <div class="jumbotron jumbotron-fluid bg-dark">
           <div class="jumbotron-background">
@@ -311,44 +220,8 @@ $dataUjiEnc = json_encode($dataUji);
 
             <div class="row d-flex justify-content-center align-items-center">
               <div class="col-md-12 col-sm-12 text-center">
-                <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
-                  <?php
-                  // for ($i=0; $i < count($dataUji); $i++) {
-                  for ($i=0; $i < 10; $i++) {
-                    ?>
-                    <tr>
-                      <td colspan="8" class="text-center">DT Uji <?php echo $i + 1; ?></td>
-                    </tr>
-                    <tr>
-                      <td>Data Latih</td>
-                      <td>PM10</td>
-                      <td>SO2</td>
-                      <td>CO</td>
-                      <td>O3</td>
-                      <td>NO2</td>
-                      <td>Kategori</td>
-                      <td>Jarak</td>
-                    </tr>
-                    <?php
-                    for ($j=0; $j < 5; $j++) {
-                      ?>
-                      <script type="text/javascript">
-                      var i = smallJarak_Manhattan[<?php echo $i; ?>][<?php echo $j; ?>][0];
-                      </script>
-                      <tr>
-                        <td>DT Latih <script>document.write(i+1)</script></td>
-                        <td><script>document.write(dataLatih[i][2])</script></td>
-                        <td><script>document.write(dataLatih[i][3])</script></td>
-                        <td><script>document.write(dataLatih[i][4])</script></td>
-                        <td><script>document.write(dataLatih[i][5])</script></td>
-                        <td><script>document.write(dataLatih[i][6])</script></td>
-                        <td><script>document.write(dataLatih[i][7])</script></td>
-                        <td><script>document.write(smallJarak_Manhattan[<?php echo $i; ?>][<?php echo $j; ?>][1])</script></td>
-                      </tr>
-                      <?php
-                    }
-                  }
-                  ?>
+                <table id="tbsjarak_manhat" class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+
                 </table>
               </div>
             </div>
@@ -367,26 +240,18 @@ $dataUjiEnc = json_encode($dataUji);
 
             <div class="row d-flex justify-content-center align-items-center">
               <div class="col-md-12 col-sm-12 text-center">
-                <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
-                  <tr>
-                    <td>Data Uji</td>
-                    <td>Terget Klasifikasi</td>
-                    <td>Hasil Klasifikasi</td>
-                    <td>Benar / Salah</td>
-                  </tr>
-                  <?php
-                  // for ($i=0; $i < count($dataUji); $i++) {
-                  for ($i=0; $i < 10; $i++) {
-                    ?>
+                <table id="tbk_manhat" class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+                  <thead>
                     <tr>
-                      <td>DT Uji <?php echo $i + 1; ?></td>
-                      <td><script>document.write(kat_Manhattan[<?php echo $i; ?>][0])</script></td>
-                      <td><script>document.write(kat_Manhattan[<?php echo $i; ?>][1])</script></td>
-                      <td><script>document.write(kat_Manhattan[<?php echo $i; ?>][2])</script></td>
+                      <td>Data Uji</td>
+                      <td>Terget Klasifikasi</td>
+                      <td>Hasil Klasifikasi</td>
+                      <td>Benar / Salah</td>
                     </tr>
-                    <?php
-                  }
-                  ?>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
                 </table>
               </div>
             </div>
@@ -410,37 +275,13 @@ $dataUjiEnc = json_encode($dataUji);
 
           <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-12 col-sm-12 text-center">
-              <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
-                <?php
-                // for ($i=0; $i < count($dataUji); $i++) {
-                for ($i=0; $i < 10; $i++) {
-                  echo "<tr>";
-                  echo '<td colspan="4" class="text-center">DT Uji '.($i + 1).'</td>';
-                  echo "</tr>";
-                  // for ($j=0; $j < count($dataLatih); $j++) {
-                  for ($j=0; $j < 5; $j++) {
-                    ?>
-                    <tr>
-                      <td>DT Latih <?php echo $j + 1; ?></td>
-                      <td><sub>
-                        ( |<?php echo $dataUji[$i][2]." - ".$dataLatih[$j][2] ?>|<sup>3</sup> +
-                        |<?php echo $dataUji[$i][3]." - ".$dataLatih[$j][3] ?>|<sup>3</sup> +
-                        |<?php echo $dataUji[$i][4]." - ".$dataLatih[$j][4] ?>|<sup>3</sup> +
-                        |<?php echo $dataUji[$i][5]." - ".$dataLatih[$j][5] ?>|<sup>3</sup> +
-                        |<?php echo $dataUji[$i][6]." - ".$dataLatih[$j][6] ?>|<sup>3</sup> )</sub><sup>1/3</sup>
-                      </td>
-                      <td> = </td>
-                      <td><script>document.write(jarak_Minkowski[<?php echo $i ?>][<?php echo $j ?>])</script></td>
-                      </tr>
-                      <?php
-                    }
-                  }
-                  ?>
-                </table>
-              </div>
+              <table id="tbjarak_minkow" class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+
+              </table>
             </div>
           </div>
         </div>
+      </div>
 
       <div class="jumbotron jumbotron-fluid bg-dark">
         <div class="jumbotron-background">
@@ -454,44 +295,8 @@ $dataUjiEnc = json_encode($dataUji);
 
           <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-12 col-sm-12 text-center">
-              <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
-                <?php
-                // for ($i=0; $i < count($dataUji); $i++) {
-                for ($i=0; $i < 10; $i++) {
-                  ?>
-                  <tr>
-                    <td colspan="8" class="text-center">DT Uji <?php echo $i + 1; ?></td>
-                  </tr>
-                  <tr>
-                    <td>Data Latih</td>
-                    <td>PM10</td>
-                    <td>SO2</td>
-                    <td>CO</td>
-                    <td>O3</td>
-                    <td>NO2</td>
-                    <td>Kategori</td>
-                    <td>Jarak</td>
-                  </tr>
-                  <?php
-                  for ($j=0; $j < 5; $j++) {
-                    ?>
-                    <script type="text/javascript">
-                    var i = smallJarak_Minkowski[<?php echo $i; ?>][<?php echo $j; ?>][0];
-                    </script>
-                    <tr>
-                      <td>DT Latih <script>document.write(i+1)</script></td>
-                      <td><script>document.write(dataLatih[i][2])</script></td>
-                      <td><script>document.write(dataLatih[i][3])</script></td>
-                      <td><script>document.write(dataLatih[i][4])</script></td>
-                      <td><script>document.write(dataLatih[i][5])</script></td>
-                      <td><script>document.write(dataLatih[i][6])</script></td>
-                      <td><script>document.write(dataLatih[i][7])</script></td>
-                      <td><script>document.write(smallJarak_Minkowski[<?php echo $i; ?>][<?php echo $j; ?>][1])</script></td>
-                    </tr>
-                    <?php
-                  }
-                }
-                ?>
+              <table id="tbsjarak_minkow" class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+
               </table>
             </div>
           </div>
@@ -510,26 +315,18 @@ $dataUjiEnc = json_encode($dataUji);
 
         <div class="row d-flex justify-content-center align-items-center">
           <div class="col-md-12 col-sm-12 text-center">
-            <table class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
-              <tr>
-                <td>Data Uji</td>
-                <td>Terget Klasifikasi</td>
-                <td>Hasil Klasifikasi</td>
-                <td>Benar / Salah</td>
-              </tr>
-              <?php
-              // for ($i=0; $i < count($dataUji); $i++) {
-              for ($i=0; $i < 10; $i++) {
-                ?>
+            <table id="tbk_minkow" class="table table-responsive table-borderless table-striped table-wrapper-scroll-y my-custom-scrollbar">
+              <thead>
                 <tr>
-                  <td>DT Uji <?php echo $i + 1; ?></td>
-                  <td><script>document.write(kat_Minkowski[<?php echo $i; ?>][0])</script></td>
-                  <td><script>document.write(kat_Minkowski[<?php echo $i; ?>][1])</script></td>
-                  <td><script>document.write(kat_Minkowski[<?php echo $i; ?>][2])</script></td>
+                  <td>Data Uji</td>
+                  <td>Terget Klasifikasi</td>
+                  <td>Hasil Klasifikasi</td>
+                  <td>Benar / Salah</td>
                 </tr>
-                <?php
-              }
-              ?>
+              </thead>
+              <tbody>
+
+              </tbody>
             </table>
           </div>
         </div>
@@ -549,6 +346,203 @@ $dataUjiEnc = json_encode($dataUji);
         $('.hideButton').click(function(){
           $('.hidden').hide();
           $('.show').show();
+        });
+
+        $(document).ready(function(){
+          for (var i = 0; i < 10; i++) {
+            var coco = '<tr><td colspan="4" class="text-center">DT Uji'
+                        +(i + 1)+'</td></tr>';
+            $('#tbjarak_eucli').append(coco);
+            for (var j = 0; j < 5; j++) {
+              var cici = '<tr><td>DT Latih '
+              +(j + 1)+'</td><td><h5><sub>&radic; <span style="text-decoration:overline;">'
+              +dataUji[i][2]+' - '+dataLatih[j][2]+'<sup>2</sup> + '
+              +dataUji[i][3]+' - '+dataLatih[j][3]+'<sup>2</sup> + '
+              +dataUji[i][4]+' - '+dataLatih[j][4]+'<sup>2</sup> + '
+              +dataUji[i][5]+' - '+dataLatih[j][5]+'<sup>2</sup> + '
+              +dataUji[i][6]+' - '+dataLatih[j][6]+'<sup>2</sup></span></sub></5></td><td> = </td><td>'
+              +jarak_Eucli[i][j]+'</td></tr>';
+              $('#tbjarak_eucli').append(cici);
+            }
+          }
+
+          for (var i = 0; i < 10; i++) {
+            var coco = '<tr><td colspan="8" class="text-center">DT Uji'
+              +(i + 1)+'</td></tr>'
+              +'<tr><td>Data Lati</td>'
+              +'<td>PM10</td>'
+              +'<td>SO2</td>'
+              +'<td>CO</td>'
+              +'<td>O3</td>'
+              +'<td>NO2</td>'
+              +'<td>Kategori</td>'
+              +'<td>Jarak</td></tr>';
+              $('#tbsjarak_eucli').append(coco);
+
+              for (var j = 0; j < 5; j++) {
+                var k = smallJarak_Eucli[i][j][0];
+                var cici = '<tr><td>DT Latih'+(k + 1)+'</td>'
+                +'<td>'+dataLatih[k][2]+'</td>'
+                +'<td>'+dataLatih[k][3]+'</td>'
+                +'<td>'+dataLatih[k][4]+'</td>'
+                +'<td>'+dataLatih[k][5]+'</td>'
+                +'<td>'+dataLatih[k][6]+'</td>'
+                +'<td>'+dataLatih[k][7]+'</td>'
+                +'<td>'+smallJarak_Eucli[i][j][1]+'</td></tr>';
+                $('#tbsjarak_eucli').append(cici);
+              }
+          }
+
+          for (var i = 0; i < 15; i++) {
+            var coco = '<tr><td>DT Uji'+(i + 1)+'</td>'
+            +'<td>'+kat_Eucli[i][0]+'</td>'
+            +'<td>'+kat_Eucli[i][1]+'</td>'
+            +'<td>'+kat_Eucli[i][2]+'</td></tr>';
+            $('#tbk_eucli tbody').append(coco);
+          }
+
+          for (var i = 0; i < 10; i++) {
+            var coco = '<tr><td colspan="4" class="text-center">DT Uji'+(i + 1)+'</td></tr>';
+            $('#tbjarak_manhat').append(coco);
+            for (var j = 0; j < 5; j++) {
+              var cici ='<tr><td>DT Latih '+(j + 1)+"</td><td>|"
+              +dataUji[i][2]+" - "+dataLatih[j][2]+"| + |"
+              +dataUji[i][3]+" - "+dataLatih[j][3]+"| + |"
+              +dataUji[i][4]+" - "+dataLatih[j][4]+"| + |"
+              +dataUji[i][5]+" - "+dataLatih[j][5]+"| + |"
+              +dataUji[i][6]+" - "+dataLatih[j][6]+"|</td><td> = </td><td>"
+              +jarak_Manhattan[i][j]+"</td></tr>";
+              $('#tbjarak_manhat').append(cici);
+            }
+          }
+
+          for (var i = 0; i < 10; i++) {
+            var coco = '<tr><td colspan="8" class="text-center">DT Uji'
+              +(i + 1)+'</td></tr>'
+              +'<tr><td>Data Lati</td>'
+              +'<td>PM10</td>'
+              +'<td>SO2</td>'
+              +'<td>CO</td>'
+              +'<td>O3</td>'
+              +'<td>NO2</td>'
+              +'<td>Kategori</td>'
+              +'<td>Jarak</td></tr>';
+              $('#tbsjarak_manhat').append(coco);
+
+              for (var j = 0; j < 5; j++) {
+                var k = smallJarak_Manhattan[i][j][0];
+                var cici = '<tr><td>DT Latih'+(k + 1)+'</td>'
+                +'<td>'+dataLatih[k][2]+'</td>'
+                +'<td>'+dataLatih[k][3]+'</td>'
+                +'<td>'+dataLatih[k][4]+'</td>'
+                +'<td>'+dataLatih[k][5]+'</td>'
+                +'<td>'+dataLatih[k][6]+'</td>'
+                +'<td>'+dataLatih[k][7]+'</td>'
+                +'<td>'+smallJarak_Manhattan[i][j][1]+'</td></tr>';
+                $('#tbsjarak_manhat').append(cici);
+              }
+          }
+
+          for (var i = 0; i < 15; i++) {
+            var coco = '<tr><td>DT Uji'+(i + 1)+'</td>'
+            +'<td>'+kat_Manhattan[i][0]+'</td>'
+            +'<td>'+kat_Manhattan[i][1]+'</td>'
+            +'<td>'+kat_Manhattan[i][2]+'</td></tr>';
+            $('#tbk_manhat tbody').append(coco);
+          }
+
+          for (var i = 0; i < 10; i++) {
+            var coco = '<tr><td colspan="4" class="text-center">DT Uji'+(i + 1)+'</td></tr>';
+            $('#tbjarak_minkow').append(coco);
+            for (var j = 0; j < 5; j++) {
+              var cici ='<tr><td>DT Latih '+(j + 1)+"</td><td><sub>( |"
+              +dataUji[i][2]+" - "+dataLatih[j][2]+"|<sup>3</sup> + |"
+              +dataUji[i][3]+" - "+dataLatih[j][3]+"|<sup>3</sup> + |"
+              +dataUji[i][4]+" - "+dataLatih[j][4]+"|<sup>3</sup> + |"
+              +dataUji[i][5]+" - "+dataLatih[j][5]+"|<sup>3</sup> + |"
+              +dataUji[i][6]+" - "+dataLatih[j][6]+"|<sup>3</sup> )</sub><sup>1/3</sup>"
+              +"</td><td> = </td><td>"+jarak_Manhattan[i][j]+"</td></tr>";
+              $('#tbjarak_minkow').append(cici);
+            }
+          }
+
+          for (var i = 0; i < 10; i++) {
+            var coco = '<tr><td colspan="8" class="text-center">DT Uji'
+              +(i + 1)+'</td></tr>'
+              +'<tr><td>Data Lati</td>'
+              +'<td>PM10</td>'
+              +'<td>SO2</td>'
+              +'<td>CO</td>'
+              +'<td>O3</td>'
+              +'<td>NO2</td>'
+              +'<td>Kategori</td>'
+              +'<td>Jarak</td></tr>';
+              $('#tbsjarak_minkow').append(coco);
+
+              for (var j = 0; j < 5; j++) {
+                var k = smallJarak_Minkowski[i][j][0];
+                var cici = '<tr><td>DT Latih'+(k + 1)+'</td>'
+                +'<td>'+dataLatih[k][2]+'</td>'
+                +'<td>'+dataLatih[k][3]+'</td>'
+                +'<td>'+dataLatih[k][4]+'</td>'
+                +'<td>'+dataLatih[k][5]+'</td>'
+                +'<td>'+dataLatih[k][6]+'</td>'
+                +'<td>'+dataLatih[k][7]+'</td>'
+                +'<td>'+smallJarak_Minkowski[i][j][1]+'</td></tr>';
+                $('#tbsjarak_minkow').append(cici);
+              }
+          }
+
+          for (var i = 0; i < 15; i++) {
+            var coco = '<tr><td>DT Uji'+(i + 1)+'</td>'
+            +'<td>'+kat_Minkowski[i][0]+'</td>'
+            +'<td>'+kat_Minkowski[i][1]+'</td>'
+            +'<td>'+kat_Minkowski[i][2]+'</td></tr>';
+            $('#tbk_minkow tbody').append(coco);
+          }
+
+        });
+
+        $('#tbk_eucli').scroll(function(){
+          if ($('#tbk_eucli').scrollTop() == $('#tbk_eucli').prop('scrollHeight') - $('#tbk_eucli').prop('offsetHeight')) {
+            var isi = $('#tbk_eucli tbody tr').length;
+            for (var i = 0; i < 10; i++) {
+              var j = isi + i;
+              var coco = '<tr><td>DT Uji'+(j + 1)+'</td>'
+              +'<td>'+kat_Eucli[j][0]+'</td>'
+              +'<td>'+kat_Eucli[j][1]+'</td>'
+              +'<td>'+kat_Eucli[j][2]+'</td></tr>';
+              $('#tbk_eucli tbody').append(coco);
+            }
+          }
+        });
+
+        $('#tbk_manhat').scroll(function(){
+          if ($('#tbk_manhat').scrollTop() == $('#tbk_manhat').prop('scrollHeight') - $('#tbk_manhat').prop('offsetHeight')) {
+            var isi = $('#tbk_manhat tbody tr').length;
+            for (var i = 0; i < 10; i++) {
+              var j = isi + i;
+              var coco = '<tr><td>DT Uji'+(j + 1)+'</td>'
+              +'<td>'+kat_Manhattan[j][0]+'</td>'
+              +'<td>'+kat_Manhattan[j][1]+'</td>'
+              +'<td>'+kat_Manhattan[j][2]+'</td></tr>';
+              $('#tbk_manhat tbody').append(coco);
+            }
+          }
+        });
+
+        $('#tbk_minkow').scroll(function(){
+          if ($('#tbk_minkow').scrollTop() == $('#tbk_minkow').prop('scrollHeight') - $('#tbk_minkow').prop('offsetHeight')) {
+            var isi = $('#tbk_minkow tbody tr').length;
+            for (var i = 0; i < 10; i++) {
+              var j = isi + i;
+              var coco = '<tr><td>DT Uji'+(j + 1)+'</td>'
+              +'<td>'+kat_Minkowski[j][0]+'</td>'
+              +'<td>'+kat_Minkowski[j][1]+'</td>'
+              +'<td>'+kat_Minkowski[j][2]+'</td></tr>';
+              $('#tbk_minkow tbody').append(coco);
+            }
+          }
         });
       });
       </script>

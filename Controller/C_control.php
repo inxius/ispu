@@ -16,12 +16,12 @@
     }
 
     if ($_GET['view'] == 'data_latih') {
-      $data = $proses->get_DataLatih();
+      $data = $proses->get_DataLatih_Limit();
       include_once '../views/admin/data_latih.php';
     }
 
     if ($_GET['view'] == 'data_uji') {
-      $data = $proses->get_DataUji();
+      $data = $proses->get_DataUji_Limit();
       include_once '../views/admin/data_uji.php';
     }
 
@@ -42,13 +42,13 @@
   if (@$_GET['aksi']) {
     if ($_GET['aksi'] == 'tambah_dlatih') {
       $status = $_GET['status'];
-      $data = $proses->get_DataLatih();
+      $data = $proses->get_DataLatih_Limit();
       include_once '../views/admin/data_latih.php';
     }
 
     if ($_GET['aksi'] == 'tambah_duji') {
       $status = $_GET['status'];
-      $data = $proses->get_DataUji();
+      $data = $proses->get_DataUji_Limit();
       include_once '../views/admin/data_latih.php';
     }
 
@@ -139,8 +139,58 @@
         array_push($dataTes, $_GET['o3']);
         array_push($dataTes, $_GET['no2']);
         $dataLatih = $proses->toArray($proses->get_DataLatih());
+        $dataLatihLimit = $proses->toArray($proses->get_DataLatih_Limit());
+        $dataTesEnc = json_encode($dataTes);
+        $dataLatihEnc = json_encode($dataLatih);
         include_once '../views/admin/klasifikasi_knn.php';
       }
+    }
+  }
+
+  if (@$_GET['ajax']) {
+    if ($_GET['ajax'] == 'dtlatih') {
+      $id = $_GET['batas'];
+      $dataLatih = $proses->get_DataLatih_LimitNext($id);
+      if ($dataLatih == false) {
+        $dataArray = json_encode(null);
+      }
+      else {
+        while ($dataLatih1 = mysqli_fetch_array($dataLatih, MYSQLI_NUM)) {
+          $row[] = $dataLatih1;
+        }
+        $dataArray = json_encode($row);
+      }
+      echo $dataArray;
+    }
+
+    if ($_GET['ajax'] == 'dtuji') {
+      $id = $_GET['batas'];
+      $dataLatih = $proses->get_DataUji_LimitNext($id);
+      if ($dataLatih == false) {
+        $dataArray = json_encode(null);
+      }
+      else {
+        while ($dataLatih1 = mysqli_fetch_array($dataLatih, MYSQLI_NUM)) {
+          $row[] = $dataLatih1;
+        }
+        $dataArray = json_encode($row);
+      }
+      echo $dataArray;
+    }
+
+    if ($_GET['ajax'] == 'k_knn_jarak') {
+      $id = $_GET['batas'];
+      $dataLatih = $proses->get_DataLatih_LimitNext($id);
+      if ($dataLatih == false) {
+        $dataArray = json_encode(null);
+      }
+      else {
+        while ($dataLatih1 = mysqli_fetch_array($dataLatih, MYSQLI_NUM)) {
+          $row[] = $dataLatih1;
+        }
+        $dataArray = json_encode($row);
+      }
+      echo $dataArray;
     }
   }
 

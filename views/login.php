@@ -30,6 +30,7 @@ if(@$_SESSION['status'] == "login"){
                 <label for="pass">Password</label>
                 <input type="password" class="form-control" name="pass" value="">
               </div>
+              <br>
               <div class="row  d-flex justify-content-center align-items-center">
                 <input type="submit" class="btn btn-success" name="aksilogin" value="Login">
               </div>

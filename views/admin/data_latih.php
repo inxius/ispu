@@ -8,6 +8,7 @@
     <title>Data Latih</title>
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../assets/css/custom.css">
+
   </head>
   <body>
     <nav class="navbar navbar-expand-sm fixed-top navbar-dark bg-dark">
@@ -52,7 +53,7 @@
 
         <div class="row d-flex justify-content-center align-items-center">
           <div class="col-md-12 col-sm-12 text-center">
-            <table class="table table-responsive table-borderless table-striped">
+            <table class="table table-responsive table-borderless table-striped" id="tabel_dtlatih">
               <thead style="color:white;" class="border-bottom">
                 <tr>
                   <th>No.</th>
@@ -97,5 +98,41 @@
         </div>
       </div>
     </div>
+
+    <script type="text/javascript">
+    $(function(){
+      $('#tabel_dtlatih tbody').scroll(function(){
+        if ($('#tabel_dtlatih tbody').scrollTop() == $('#tabel_dtlatih tbody').prop('scrollHeight') - $('#tabel_dtlatih tbody').prop('offsetHeight')) {
+          // console.log("oj");
+          var isi = $('#tabel_dtlatih tbody tr').length;
+          $.ajax({
+            url:'C_control.php',
+            data:'ajax=dtlatih&batas='+isi,
+            dataType:'json',
+            success:function(data){
+              if (data == null) {
+                console.log("data null");
+              }
+              else {
+                for (var i = 0; i < data.length; i++) {
+                  var coco = "<tr><td>"+data[i][0]+"</td><td>"
+                  +data[i][2]+"</td><td>"
+                  +data[i][3]+"</td><td>"+data[i][4]+"</td><td>"
+                  +data[i][5]+"</td><td>"+data[i][6]+"</td><td>"
+                  +data[i][7]+"</td><td>"+data[i][8]+"</td><td>"
+                  +data[i][9]+"</td></tr>";
+                  $('#tabel_dtlatih tbody').append(coco);
+                }
+
+              }
+            },
+            error:function(){
+              console.log("error");
+            }
+          });
+        }
+      });
+    });
+    </script>
   </body>
 </html>

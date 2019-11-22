@@ -322,8 +322,40 @@
       return $data;
     }
 
+    public function get_DataLatih_Limit(){
+      $data = $this->DBS->action_SelectLimit("tb_data_latih");
+      if (mysqli_num_rows($data) == 0) {
+        $data = false;
+      }
+      return $data;
+    }
+
+    public function get_DataLatih_LimitNext($next){
+      $data = $this->DBS->action_SelectLimitNext("tb_data_latih", $next);
+      if (mysqli_num_rows($data) == 0) {
+        $data = false;
+      }
+      return $data;
+    }
+
     public function get_DataUji(){
       $data = $this->DBS->action_Select("tb_data_uji");
+      if (mysqli_num_rows($data) == 0) {
+        $data = false;
+      }
+      return $data;
+    }
+
+    public function get_DataUji_Limit(){
+      $data = $this->DBS->action_SelectLimit("tb_data_uji");
+      if (mysqli_num_rows($data) == 0) {
+        $data = false;
+      }
+      return $data;
+    }
+
+    public function get_DataUji_LimitNext($next){
+      $data = $this->DBS->action_SelectLimitNext("tb_data_uji", $next);
       if (mysqli_num_rows($data) == 0) {
         $data = false;
       }
