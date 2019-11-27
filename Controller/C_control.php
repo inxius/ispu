@@ -37,6 +37,10 @@
     if ($_GET['view'] == 'knn') {
       include_once '../views/admin/pengujian_knn.php';
     }
+
+    if ($_GET['view'] == 'bagiData') {
+      include_once '../views/admin/bagi_data.php';
+    }
   }
 
   if (@$_GET['aksi']) {
@@ -49,7 +53,7 @@
     if ($_GET['aksi'] == 'tambah_duji') {
       $status = $_GET['status'];
       $data = $proses->get_DataUji_Limit();
-      include_once '../views/admin/data_latih.php';
+      include_once '../views/admin/data_uji.php';
     }
 
     if ($_GET['aksi'] == 'latih') {
@@ -144,6 +148,11 @@
         $dataLatihEnc = json_encode($dataLatih);
         include_once '../views/admin/klasifikasi_knn.php';
       }
+    }
+
+    if ($_GET['aksi'] == 'bagi_data') {
+      $dtlatih = $_GET['dt_latih'];
+      $proses->bagiData($dtlatih);
     }
   }
 

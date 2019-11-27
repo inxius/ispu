@@ -368,7 +368,7 @@ function u_getSmallJarak(jarak, dataLatih, filter){
 
   for (var i = 0; i < jarak_temp.length; i++) {
     var temp = new Array();
-    for (var j = 0; j < 5; j++) {
+    for (var j = 0; j < 1; j++) {
 
       if (filter == 'manhattan') {
         // Untuk Jarak Manhattan
@@ -403,7 +403,7 @@ function u_getKatKnn(smallJarak, dataUji){
 
     temp.push(target);
 
-    for (var j = 0; j < 5; j++) {
+    for (var j = 0; j < 1; j++) {
       if (smallJarak[i][j][2] == "baik") {
         baik++;
       }

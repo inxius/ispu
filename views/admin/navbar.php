@@ -8,9 +8,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="../../Controller/C_control.php?view=home">Home</a>
       </li>
-      <!-- <li class="nav-item active">
-        <a class="nav-link" href="template.php">Template File</a>
-      </li> -->
+      <li class="nav-item active">
+        <a class="nav-link" href="../../Controller/C_control.php?view=bagiData">Bagi Data</a>
+      </li>
       <li class="nav-item active">
         <a class="nav-link" href="../../Controller/C_control.php?view=data_latih">Tambah Data Latih</a>
       </li>

@@ -62,6 +62,12 @@
       $query = $db->query($sql) or die ($db->error);
     }
 
+    function addToTBTemp($id_petugas, $pm10, $so2, $co, $o3, $no2, $kat, $tanggal_pengambilan, $tanggal_unggah){
+      $db = $this->mysqli;
+      $sql = "INSERT INTO temp VALUES (NULL , '$id_petugas', '$pm10', '$so2', '$co', '$o3', '$no2', '$kat', '$tanggal_pengambilan', '$tanggal_unggah')";
+      $query = $db->query($sql) or die ($db->error);
+    }
+
     function updateParameter($filter, $data, $tanggal){
       $db = $this->mysqli;
 

@@ -66,6 +66,14 @@
       return $rows;
     }
 
+    public function toArray2($object){
+      $rows = Array();
+      while ($row = mysqli_fetch_array($object, MYSQLI_NUM)) {
+        array_push($rows, $row);
+      }
+      return $rows;
+    }
+
     public function uploadFileToDB($filename, $id_petugas, $filter){
       $dataArray = $this->convertToArray($filename);
       $upload = $this->getNormalData($dataArray, $id_petugas, $filter);
@@ -143,7 +151,8 @@
                 is_numeric($data[$i][$o3]) && is_numeric($data[$i][$no2])) {
 
               if (strcasecmp($filter, "latih") == 0) {
-                $this->DBS->addToTBLatih($id_petugas, $data[$i][$pm10], $data[$i][$so2], $data[$i][$co], $data[$i][$o3], $data[$i][$no2], strtolower($data[$i][$kat]), $data[$i][$tanggal], $today);
+                // $this->DBS->addToTBLatih($id_petugas, $data[$i][$pm10], $data[$i][$so2], $data[$i][$co], $data[$i][$o3], $data[$i][$no2], strtolower($data[$i][$kat]), $data[$i][$tanggal], $today);
+                $this->DBS->addToTBTemp($id_petugas, $data[$i][$pm10], $data[$i][$so2], $data[$i][$co], $data[$i][$o3], $data[$i][$no2], strtolower($data[$i][$kat]), $data[$i][$tanggal], $today);
               }
 
               if (strcasecmp($filter, "uji") == 0) {
@@ -156,6 +165,53 @@
         return true;
       }
     }
+
+// PEMBAGIAN DATA //
+
+    public function bagiData($persen){
+      $baik = $this->toArray2($this->get_Temp_Where('baik'));
+      $sedang = $this->toArray2($this->get_Temp_Where('sedang'));
+      $TSehat = $this->toArray2($this->get_Temp_Where('tidak sehat'));
+      $STSehat = $this->toArray2($this->get_Temp_Where('sangat tidak sehat'));
+
+      $this->insertToDBLatih($baik, $persen);
+      $this->insertToDBLatih($sedang, $persen);
+      $this->insertToDBLatih($TSehat, $persen);
+      $this->insertToDBLatih($STSehat, $persen);
+
+      $this->insertToDBUji($baik, $persen);
+      $this->insertToDBUji($sedang, $persen);
+      $this->insertToDBUji($TSehat, $persen);
+      $this->insertToDBUji($STSehat, $persen);
+
+      echo "OK";
+    }
+
+    public function slicesLatih($data, $persen){
+      $num = floor($persen * count($data) / 100);
+      return array_slice($data, 0, $num);
+    }
+
+    public function slicesUji($data, $persen){
+      $num = floor($persen * count($data) / 100);
+      return array_slice($data, $num);
+    }
+
+    private function insertToDBLatih($data, $persen){
+      $dataToUpload = $this->slicesLatih($data, $persen);
+      for ($i=0; $i < count($dataToUpload); $i++) {
+        $this->DBS->addToTBLatih($dataToUpload[$i][1], $dataToUpload[$i][2], $dataToUpload[$i][3], $dataToUpload[$i][4], $dataToUpload[$i][5], $dataToUpload[$i][6], $dataToUpload[$i][7], $dataToUpload[$i][8], $dataToUpload[$i][9]);
+      }
+    }
+
+    private function insertToDBUji($data, $persen){
+      $dataToUpload = $this->slicesUji($data, $persen);
+      for ($i=0; $i < count($dataToUpload); $i++) {
+        $this->DBS->addToTBUji($dataToUpload[$i][1], $dataToUpload[$i][2], $dataToUpload[$i][3], $dataToUpload[$i][4], $dataToUpload[$i][5], $dataToUpload[$i][6], $dataToUpload[$i][7], $dataToUpload[$i][8], $dataToUpload[$i][9]);
+      }
+    }
+
+// -------------------------- //
 
     public function pelatihan(){
       $out = Array();
@@ -372,6 +428,10 @@
 
     public function get_Parameter_Where($key){
       return $this->DBS->action_Select_Where('tb_parameter', 'kategori', $key);
+    }
+
+    public function get_Temp_Where($key){
+      return $this->DBS->action_Select_Where('temp', 'kategori', $key);
     }
   }
 
